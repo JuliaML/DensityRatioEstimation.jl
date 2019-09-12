@@ -1,0 +1,69 @@
+---
+title: Introduction to DensityRatioEstimation.jl
+author: Kai Xu
+date: 12th September 2019
+---
+
+We start by loading the necessary packages.
+
+```julia
+using Random, Distributions, DensityRatioEstimation, PyPlot
+Random.seed!(1234);
+```
+
+Let's first define two distributions `dist_nu` and `dist_de` that we are interested in to estimate the density ratio `p_nu / p_de`.
+
+```julia
+dist_nu = Normal(1, 1)
+dist_de = Normal(0, 2);
+```
+
+We draw some samples `x_nu` and `x_de` from `dist_nu` and `dist_de`, respectively.
+
+```julia
+n_nu = 100
+x_nu = rand(dist_nu, 1, n_nu)
+n_de = 200
+x_de = rand(dist_de, 1, n_de);
+```
+
+We then visualise the density of the two distributions, the corresponding (true) density ratio and those samples.
+
+```julia
+fig = plt.figure(figsize=(8, 6))
+
+x = range(-5; stop=5, length=100)
+lp_nu = logpdf.(Ref(dist_nu), x)
+lp_de = logpdf.(Ref(dist_de), x)
+lr = lp_nu - lp_de
+
+plt.plot(x, exp.(lp_nu), "--", c="blue",   label="p_nu")
+plt.plot(x, exp.(lp_de), "--", c="orange", label="p_de")
+plt.plot(x, exp.(lr),    "--", c="green",  label="p_nu / p_de")
+
+plt.scatter(x_nu[1,:], zeros(n_nu) .- 0.5, marker="x", c="blue",   label="nu", alpha=0.25)
+plt.scatter(x_de[1,:], zeros(n_de) .- 1.0, marker="x", c="orange", label="de", alpha=0.25)
+
+plt.legend()
+
+fig
+```
+
+We then use the moment matching density ratio estimation method provided by DensityRatioEstimation.jl to estimate the density ratio based on the samples `x_nu` and `x_de`.
+- `MMDNumerical()` is the maximum mean discrepancy (MMD) method using a numerical solver (with positive and normalisation constraints by default)
+- `MMDAnalytical()` is the MMD method using the analytical solution (with no constraint)
+
+```julia
+fig = plt.figure(figsize=(8, 6))
+
+r_numerical  = estimate_ratio(MMDNumerical(), x_de, x_nu)
+r_analytical = estimate_ratio(MMDAnalytical(), x_de, x_nu)
+
+plt.plot(x, exp.(lr), "--", c="black", label="r_true")
+plt.scatter(vec(x_de), r_numerical,  s=5.0, alpha=0.5, label="r_numerical")
+plt.scatter(vec(x_de), r_analytical, s=5.0, alpha=0.5, label="r_analytical")
+
+plt.legend()
+
+fig
+```
