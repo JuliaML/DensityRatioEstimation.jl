@@ -1,5 +1,9 @@
 module DensityRatioEstimation
 
-greet() = print("Hello World!")
+using Statistics, LinearAlgebra, JuMP
+import Ipopt; IpoptOptimizer = Ipopt.Optimizer
 
-end # module
+include("moment_matching.jl")
+export estimate_r_mmd, get_r_hat_numerically, get_r_hat_analytical
+
+end
