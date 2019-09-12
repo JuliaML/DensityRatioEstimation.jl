@@ -1,6 +1,6 @@
 # DensityRatioEstimation.jl
 
-[![Build Status](https://travis-ci.com/xukai92/DensityRatioEstimation.jl.svg?branch=master)](https://travis-ci.com/xukai92/DensityRatioEstimation.jl) [![Coverage Status](https://coveralls.io/repos/github/xukai92/DensityRatioEstimation.jl/badge.svg)](https://coveralls.io/github/xukai92/DensityRatioEstimation.jl)
+[![Build Status](https://travis-ci.com/xukai92/DensityRatioEstimation.jl.svg?branch=master)](https://travis-ci.com/xukai92/DensityRatioEstimation.jl) [![Coverage Status](https://coveralls.io/repos/github/xukai92/DensityRatioEstimation.jl/badge.svg?branch=master)](https://coveralls.io/github/xukai92/DensityRatioEstimation.jl?branch=master)
 
 A Julia package for density ratio estimation
 
