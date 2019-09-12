@@ -4,7 +4,7 @@
 
 A Julia package for density ratio estimation
 
-To get started, see the [introduction](https://htmlpreview.github.io/?https://github.com/xukai92/DensityRatioEstimation.jl/blob/master/docs/intro.html).
+Please read the [introduction](https://htmlpreview.github.io/?https://github.com/xukai92/DensityRatioEstimation.jl/blob/master/docs/intro.html) to get started.
 
 ## Supported methods
 
