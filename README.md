@@ -2,6 +2,8 @@
 
 A Julia package for density ratio estimation
 
+[![Build Status](https://travis-ci.com/xukai92/DensityRatioEstimation.jl.svg?branch=master)](https://travis-ci.com/xukai92/DensityRatioEstimation.jl) [![Coverage Status](https://coveralls.io/repos/github/xukai92/DensityRatioEstimation.jl/badge.svg)](https://coveralls.io/github/xukai92/DensityRatioEstimation.jl)
+
 Supported methods
 - Infinite moment matching based on maximum mean discrepancy (MMD)
 
