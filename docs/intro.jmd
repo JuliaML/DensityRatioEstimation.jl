@@ -7,7 +7,8 @@ date: 12th September 2019
 We start by loading the necessary packages.
 
 ```julia
-using Distributions, DensityRatioEstimation, PyPlot
+using Random, Distributions, DensityRatioEstimation, PyPlot
+Random.seed!(1234);
 ```
 
 Let's first define two distributions `dist_nu` and `dist_de` that we are interested in to estimate the density ratio `p_nu / p_de`.
@@ -49,15 +50,17 @@ fig
 ```
 
 We then use the moment matching density ratio estimation method provided by DensityRatioEstimation.jl to estimate the density ratio based on the samples `x_nu` and `x_de`.
+- `MMDNumerical()` is the maximum mean discrepancy (MMD) method using a numerical solver (with positive and normalisation constraints by default)
+- `MMDAnalytical()` is the MMD method using the analytical solution (with no constraint)
 
 ```julia
 fig = plt.figure(figsize=(8, 6))
 
-r_numerical  = estimate_r_mmd(x_de, x_nu; get_r_hat=get_r_hat_numerically)
-r_analytical = estimate_r_mmd(x_de, x_nu)
+r_numerical  = estimate_ratio(MMDNumerical(), x_de, x_nu)
+r_analytical = estimate_ratio(MMDAnalytical(), x_de, x_nu)
 
 plt.plot(x, exp.(lr), "--", c="black", label="r_true")
-plt.scatter(vec(x_de), r_numerical, s=5.0, alpha=0.5, label="r_numerical")
+plt.scatter(vec(x_de), r_numerical,  s=5.0, alpha=0.5, label="r_numerical")
 plt.scatter(vec(x_de), r_analytical, s=5.0, alpha=0.5, label="r_analytical")
 
 plt.legend()
