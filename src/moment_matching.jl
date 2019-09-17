@@ -14,15 +14,15 @@ function pairwise_dot(x, y)
     return repeat(xsq'; outer=(1, ny)) .+ repeat(ysq; outer=(nx, 1)) - 2xiyj
 end
 
-gaussian_gram_by_pairwise_dot(pdot; σ=1) = exp.(-pdot ./ 2(σ ^ 2))
-gaussian_gram(x; σ=1) = gaussian_gram_by_pairwise_dot(pairwise_dot(x); σ=σ)
-gaussian_gram(x, y; σ=1) = gaussian_gram_by_pairwise_dot(pairwise_dot(x, y); σ=σ)
+gaussian_gram_by_pairwise_dot(pdot, σ) = exp.(-pdot ./ 2(σ ^ 2))
+gaussian_gram(x, σ) = gaussian_gram_by_pairwise_dot(pairwise_dot(x), σ)
+gaussian_gram(x, y, σ) = gaussian_gram_by_pairwise_dot(pairwise_dot(x, y), σ)
 
 abstract type AbstractMMD end
 
 function estimate_ratio(mmd::AbstractMMD, pdot_dede, pdot_denu, σ)
-    Kdede = gaussian_gram_by_pairwise_dot(pdot_dede; σ=σ)
-    Kdenu = gaussian_gram_by_pairwise_dot(pdot_denu; σ=σ)
+    Kdede = gaussian_gram_by_pairwise_dot(pdot_dede, σ)
+    Kdenu = gaussian_gram_by_pairwise_dot(pdot_denu, σ)
     return _estimate_ratio(mmd, Kdede, Kdenu)
 end
 
