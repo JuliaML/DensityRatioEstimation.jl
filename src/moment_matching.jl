@@ -77,11 +77,19 @@ function _estimate_ratio(mmd::MMDNumerical, Kdede, Kdenu)
     return value.(r)
 end
 
-@with_kw struct MMDAnalytical{T} <: AbstractMMD
+@with_kw struct MMDAnalytical{T,M} <: AbstractMMD
     ϵ::T=1f-3
+    method::M=Val{:solve}
 end
 
-function _estimate_ratio(mmd::MMDAnalytical{T}, Kdede, Kdenu) where {T}
+function _estimate_ratio(mmd::MMDAnalytical{T,Val{:inv}}, Kdede, Kdenu) where {T}
     n_de, n_nu = size(Kdenu)
     return convert(T, n_de / n_nu) * inv(Kdede + diagm(0 => mmd.ϵ * ones(T, n_de))) * Kdenu * ones(T, n_nu) 
+end
+
+function _estimate_ratio(mmd::MMDAnalytical{T,Val{:solve}}, Kdede, Kdenu) where {T}
+    n_de, n_nu = size(Kdenu)
+    A = Kdede + diagm(0 => mmd.ϵ * ones(T, n_de))
+    b = Kdenu * ones(T, n_nu)
+    return convert(T, n_de / n_nu) * (A \ b)
 end
