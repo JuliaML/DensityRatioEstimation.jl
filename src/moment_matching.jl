@@ -77,19 +77,29 @@ function _estimate_ratio(mmd::MMDNumerical, Kdede, Kdenu)
     return value.(r)
 end
 
-@with_kw struct MMDAnalytical{T,M} <: AbstractMMD
-    ϵ::T=1f-3
-    method::M=Val{:solve}
+struct MMDAnalytical{T<:AbstractFloat,S,M} <: AbstractMMD
+    ϵ::T
+    function MMDAnalytical(; ϵ::T=1f-3, method::Symbol=:solve) where {T}
+        @assert method in (:solve, :inv)
+        S = iszero(ϵ) ? Val{:false} : Val{:true}
+        if T == Int
+            ϵ = float(ϵ)
+        end
+        new{eltype(ϵ), S, Val{method}}(ϵ)
+    end
 end
 
-function _estimate_ratio(mmd::MMDAnalytical{T,Val{:inv}}, Kdede, Kdenu) where {T}
+function adddiag(mmd::MMDAnalytical{T, Val{:true}, M}, Kdede) where {T, M}
+    return Kdede + diagm(0 => mmd.ϵ * fill(one(T), size(Kdede, 1)))
+end
+adddiag(mmd::MMDAnalytical{T, Val{:false}, M}, Kdede) where {T, M} = Kdede
+
+function _estimate_ratio(mmd::MMDAnalytical{T, S, Val{:inv}}, Kdede, Kdenu) where {T, S}
     n_de, n_nu = size(Kdenu)
-    return convert(T, n_de / n_nu) * inv(Kdede + diagm(0 => mmd.ϵ * ones(T, n_de))) * Kdenu * ones(T, n_nu) 
+    return convert(T, n_de / n_nu) * inv(adddiag(mmd, Kdede)) * Kdenu * fill(one(T), n_nu)
 end
 
-function _estimate_ratio(mmd::MMDAnalytical{T,Val{:solve}}, Kdede, Kdenu) where {T}
+function _estimate_ratio(mmd::MMDAnalytical{T, S, Val{:solve}}, Kdede, Kdenu) where {T, S}
     n_de, n_nu = size(Kdenu)
-    A = Kdede + diagm(0 => mmd.ϵ * ones(T, n_de))
-    b = Kdenu * ones(T, n_nu)
-    return convert(T, n_de / n_nu) * (A \ b)
+    return convert(T, n_de / n_nu) * (adddiag(mmd, Kdede) \ sum(Kdenu; dims=2)[:,1])
 end
