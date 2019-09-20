@@ -77,12 +77,15 @@ function _estimate_ratio(mmd::MMDNumerical, Kdede, Kdenu)
     return value.(r)
 end
 
-struct MMDAnalytical{T,S,M} <: AbstractMMD
+struct MMDAnalytical{T<:AbstractFloat,S,M} <: AbstractMMD
     ϵ::T
-    function MMDAnalytical(; ϵ::T=1f-3, method::Symbol=:solve) where {T<:AbstractFloat}
+    function MMDAnalytical(; ϵ::T=1f-3, method::Symbol=:solve) where {T}
         @assert method in (:solve, :inv)
         S = iszero(ϵ) ? Val{:false} : Val{:true}
-        new{T, S, Val{method}}(ϵ)
+        if T == Int
+            ϵ = float(ϵ)
+        end
+        new{eltype(ϵ), S, Val{method}}(ϵ)
     end
 end
 

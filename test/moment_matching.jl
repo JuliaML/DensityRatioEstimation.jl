@@ -74,6 +74,11 @@ end
 
         r_solve = estimate_ratio(MMDAnalytical(method=:solve), x_de, x_nu)
         r_inv = estimate_ratio(MMDAnalytical(method=:inv), x_de, x_nu)
+        
+        @test r_solve ≈ r_inv
+
+        r_solve = estimate_ratio(MMDAnalytical(ϵ=0), x_de, x_nu)
+        r_inv = estimate_ratio(MMDAnalytical(ϵ=0), x_de, x_nu)
 
         @test r_solve ≈ r_inv
     end
