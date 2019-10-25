@@ -5,9 +5,9 @@ Pairwise squared distances between each colum vector in `x`.
 """
 function pairwise_sqd(x)
     n = size(x, 2)
-    xixj = x' * x
+    xixj = transpose(x) * x
     xsq = sum(x .^ 2; dims=1)
-    return repeat(xsq'; outer=(1, n)) + repeat(xsq; outer=(n, 1)) - 2xixj
+    return transpose(xsq) .+ xsq - 2xixj
 end
 
 """
@@ -18,10 +18,10 @@ Pairwise squared distances between each colum vector in `x` and `y`.
 function pairwise_sqd(x, y)
     nx = size(x, 2)
     ny = size(y, 2)
-    xiyj = x' * y
+    xiyj = transpose(x) * y
     xsq = sum(x .^ 2; dims=1)
     ysq = sum(y .^ 2; dims=1)
-    return repeat(xsq'; outer=(1, ny)) .+ repeat(ysq; outer=(nx, 1)) - 2xiyj
+    return transpose(xsq) .+ ysq - 2xiyj
 end
 
 gaussian_gram_by_pairwise_sqd(pdot, σ) = exp.(-pdot ./ 2(σ ^ 2))
@@ -53,7 +53,7 @@ function estimate_ratio(mmd::AbstractMMD, x_de, x_nu; σs=nothing)
     end
 
     r_de = mapreduce(σ -> estimate_ratio(mmd, pdot_dede, pdot_denu, σ), +, σs)
-    
+
     return r_de / convert(Float32, length(σs))
 end
 
