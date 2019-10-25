@@ -1,5 +1,6 @@
 using Test, Statistics, Distributions, Distances, DensityRatioEstimation
 using DensityRatioEstimation: pairwise_sqd, gaussian_gram, gaussian_gram_by_pairwise_sqd
+using JuMP, Ipopt
 
 @testset "Correctness of `pairwise_sqd` and `gaussian_gram_by_pairwise_sqd`" begin
     pairwise_sqd_golden(x) = pairwise(SqEuclidean(), x; dims=2)

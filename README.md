@@ -7,8 +7,9 @@ To get started, read the [introduction](https://htmlpreview.github.io/?https://g
 ## Supported methods
 
 Infinite moment matching based on maximum mean discrepancy (MMD)
-- Numerical solution with optional positivity and normalisation constraints
 - Analytical solution with no constraint
+- Numerical solution with optional positivity and normalisation constraints
+    - Requires `JuMP.jl` and `Ipopt.jl`.
 
 ## References
 
