@@ -54,18 +54,18 @@ function estimate_ratio(mmd::AbstractMMD, x_de, x_nu; σs=nothing)
 
     r_de = mapreduce(σ -> estimate_ratio(mmd, pdot_dede, pdot_denu, σ), +, σs)
 
-    return r_de / convert(Float32, length(σs))
+    return inv(length(σs)) * r_de
 end
 
-struct MMDAnalytical{T<:AbstractFloat,S,M} <: AbstractMMD
+struct MMDAnalytical{T<:AbstractFloat, S, M} <: AbstractMMD
     ϵ::T
-    function MMDAnalytical(; ϵ::T=1f-3, method::Symbol=:solve) where {T}
+    function MMDAnalytical(ϵ::T=1f-3; method::Symbol=:solve) where {T<:Number}
         @assert method in (:solve, :inv)
         S = iszero(ϵ) ? Val{:false} : Val{:true}
         if T == Int
             ϵ = float(ϵ)
         end
-        new{eltype(ϵ), S, Val{method}}(ϵ)
+        return new{typeof(ϵ), S, Val{method}}(ϵ)
     end
 end
 
