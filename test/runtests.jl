@@ -1,11 +1,20 @@
+using DensityRatioEstimation
+using Distributions
+using JuMP, Ipopt
 using Test
 
-@testset "Tests" begin
-    tests = [
-        "mmd.jl",
-    ]
+# environment settings
+islinux = Sys.islinux()
+istravis = "TRAVIS" ∈ keys(ENV)
+datadir = joinpath(@__DIR__,"data")
 
-    for t in tests
-        include(t)
-    end
+# list of tests
+testfiles = [
+  "mmd.jl"
+]
+
+@testset "DensityRatioEstimation.jl" begin
+  for testfile in testfiles
+    include(testfile)
+  end
 end
