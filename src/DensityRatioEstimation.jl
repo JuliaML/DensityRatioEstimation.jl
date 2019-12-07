@@ -27,13 +27,19 @@ function __init__()
 end
 
 export
-  # types
+  # estimators
   DensityRatioEstimator,
   MMD,
   KLIEP,
 
   MMDAnalytical, # TODO: deprecate
   MMDNumerical, # TODO: deprecate
+
+  # optim libs
+  JuliaLib,
+  OptimLib,
+  ConvexLib,
+  JuMPLib,
 
   # functions
   density_ratio
