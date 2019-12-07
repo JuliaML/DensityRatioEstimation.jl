@@ -21,12 +21,12 @@ include("mmd/julia.jl")
 
 export
   # types
+  DensityRatioEstimator,
   MMD,
   MMDAnalytical, # TODO: deprecate
   MMDNumerical, # TODO: deprecate
 
   # functions
-  density_ratio,
-  estimate_ratio # TODO: deprecate
+  density_ratio
 
 end # module
