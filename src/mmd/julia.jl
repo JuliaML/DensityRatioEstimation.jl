@@ -26,7 +26,6 @@ function estimate_ratio(mmd::AbstractMMD, x_de, x_nu; σs=nothing)
 
     if isnothing(σs)
         σ = sqrt(median([pdot_dede..., pdot_denu...]))
-        @info "Automatically choose σ using the median of pairwise distances: $σ."
         σs = [σ]
     end
 
