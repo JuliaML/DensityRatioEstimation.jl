@@ -1,32 +1,10 @@
-"""
-    pairwise_sqd(x)
-
-Pairwise squared distances between each colum vector in `x`.
-"""
-function pairwise_sqd(x)
-    n = size(x, 2)
-    xixj = transpose(x) * x
-    xsq = sum(x .^ 2; dims=1)
-    return transpose(xsq) .+ xsq - 2xixj
-end
-
-"""
-    pairwise_sqd(x, y)
-
-Pairwise squared distances between each colum vector in `x` and `y`.
-"""
-function pairwise_sqd(x, y)
-    nx = size(x, 2)
-    ny = size(y, 2)
-    xiyj = transpose(x) * y
-    xsq = sum(x .^ 2; dims=1)
-    ysq = sum(y .^ 2; dims=1)
-    return transpose(xsq) .+ ysq - 2xiyj
-end
+# ------------------------------------------------------------------
+# Licensed under the MIT License. See LICENSE in the project root.
+# ------------------------------------------------------------------
 
 gaussian_gram_by_pairwise_sqd(pdot, σ) = exp.(-pdot ./ 2(σ ^ 2))
-gaussian_gram(x, σ) = gaussian_gram_by_pairwise_sqd(pairwise_sqd(x), σ)
-gaussian_gram(x, y, σ) = gaussian_gram_by_pairwise_sqd(pairwise_sqd(x, y), σ)
+gaussian_gram(x, σ) = gaussian_gram_by_pairwise_sqd(pairwise(Euclidean(), x, dims=2), σ)
+gaussian_gram(x, y, σ) = gaussian_gram_by_pairwise_sqd(pairwise(Euclidean(), x, y, dims=2), σ)
 
 abstract type AbstractMMD end
 
@@ -43,8 +21,8 @@ Estimate `p_nu(x_de) / p_de(x_de)` using mutiple `σ` in `σs`.
 If `σs` is not provided, the median of pairwise distances will be used.
 """
 function estimate_ratio(mmd::AbstractMMD, x_de, x_nu; σs=nothing)
-    pdot_dede = pairwise_sqd(x_de)
-    pdot_denu = pairwise_sqd(x_de, x_nu)
+    pdot_dede = pairwise(Euclidean(), x_de, dims=2)
+    pdot_denu = pairwise(Euclidean(), x_de, x_nu, dims=2)
 
     if isnothing(σs)
         σ = sqrt(median([pdot_dede..., pdot_denu...]))
