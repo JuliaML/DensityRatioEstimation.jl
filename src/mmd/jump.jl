@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------
 
 using .JuMP
-using .Ipopt: Optimizer
+using .Ipopt
 
 struct MMDNumerical <: AbstractMMD
   positivity::Bool
@@ -16,7 +16,7 @@ MMDNumerical(;positivity::Bool=true, normalisation::Bool=true) =
 function _density_ratio(mmd::MMDNumerical, Kdede, Kdenu)
   n_de, n_nu = size(Kdenu)
 
-  model = Model(with_optimizer(Optimizer, print_level=0, sb="yes"))
+  model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
   @variable(model, r[1:n_de])
   @objective(model, Min, 1 / n_de ^ 2 * sum(r[i] * Kdede[i,j] * r[j] for i = 1:n_de, j=1:n_de) - 2 / (n_de * n_nu) * sum(r[i] * Kdenu[i,j] for i = 1:n_de, j=1:n_nu))
   if mmd.positivity

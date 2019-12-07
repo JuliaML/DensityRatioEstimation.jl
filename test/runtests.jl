@@ -1,5 +1,6 @@
 using DensityRatioEstimation
 using Distributions
+using Optim
 using JuMP, Ipopt
 using Test
 
