@@ -1,15 +1,32 @@
+# ------------------------------------------------------------------
+# Licensed under the MIT License. See LICENSE in the project root.
+# ------------------------------------------------------------------
+
 module DensityRatioEstimation
 
-using Requires, Parameters, Statistics, LinearAlgebra
+using Statistics
+using LinearAlgebra
+using Distances
+using Parameters # TODO: eliminate dependency
 
-include("moment_matching.jl")
-export MMDAnalytical, MMDNumerical
-
-export estimate_ratio
-
+using Requires
 function __init__()
-    # The path name `glue` comes from here: https://github.com/JuliaLang/Pkg.jl/issues/1285#issuecomment-525891481
-    @require JuMP="4076af6c-e467-56ae-b986-b466b2749572" @require Ipopt="b6b21f68-93f8-5de0-b562-5493be1d77c9" include("glue/opt.jl")
+  # load methods based on available dependencies
+  @require JuMP="4076af6c-e467-56ae-b986-b466b2749572" begin
+    @require Ipopt="b6b21f68-93f8-5de0-b562-5493be1d77c9" include("mmd/jump.jl")
+  end
 end
 
-end
+include("mmd/julia.jl")
+
+export
+  # types
+  MMD,
+  MMDAnalytical, # TODO: deprecate
+  MMDNumerical, # TODO: deprecate
+
+  # functions
+  density_ratio,
+  estimate_ratio # TODO: deprecate
+
+end # module

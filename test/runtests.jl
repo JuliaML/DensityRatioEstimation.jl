@@ -2,7 +2,7 @@ using Test
 
 @testset "Tests" begin
     tests = [
-        "moment_matching.jl",
+        "mmd.jl",
     ]
 
     for t in tests
