@@ -4,7 +4,7 @@
 
 module DensityRatioEstimation
 
-using StatsBase: sample
+using StatsBase
 using Statistics
 using LinearAlgebra
 using Distances
@@ -28,9 +28,13 @@ function __init__()
 end
 
 export
+  # ratio types
+  DensityRatio,
+  DiscreteDensityRatio,
+  FunctionalDensityRatio,
+
   # estimators
   DensityRatioEstimator,
-  MMD,
   KLIEP,
 
   MMDAnalytical, # TODO: deprecate
