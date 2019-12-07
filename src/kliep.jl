@@ -24,3 +24,5 @@ end
 
 KLIEP(σ) = KLIEP(σ, 100)
 KLIEP() = KLIEP(1.0)
+
+_default_optlib(dre::KLIEP) = OptimLib
