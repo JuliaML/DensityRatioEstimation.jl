@@ -4,6 +4,7 @@
 
 module DensityRatioEstimation
 
+using StatsBase: sample
 using Statistics
 using LinearAlgebra
 using Distances

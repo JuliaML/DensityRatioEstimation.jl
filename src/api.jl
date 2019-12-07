@@ -25,7 +25,7 @@ struct JuMPLib   <: OptimizationLibrary end
 """
     density_ratio(x_nu, x_de, dre; optlib=JuliaLib())
 
-Estimate density ratio `p_nu(x_de) / p_de(x_de)` with estimator
+Estimate density ratio `p_nu(x) / p_de(x)` with estimator
 `dre` and optimization library `optlib`.
 """
 density_ratio(x_nu, x_de, dre::DensityRatioEstimator; optlib=JuliaLib()) =

@@ -10,7 +10,8 @@ datadir = joinpath(@__DIR__,"data")
 
 # list of tests
 testfiles = [
-  "mmd.jl"
+  "mmd.jl",
+  "kliep.jl"
 ]
 
 @testset "DensityRatioEstimation.jl" begin
