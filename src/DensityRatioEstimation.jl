@@ -10,15 +10,17 @@ using LinearAlgebra
 using Distances
 
 # API for density ratio estimation
-include("api.jl")
+include("api/ratios.jl")
+include("api/optlibs.jl")
+include("api/estimators.jl")
 
-# density ratio estimators
+# available estimators
 include("kliep.jl")
 
 # pure Julia implementations
 include("mmd/julia.jl")
 
-# implementations with extra dependencies
+# implementations that require extra dependencies
 using Requires
 function __init__()
   @require JuMP="4076af6c-e467-56ae-b986-b466b2749572" begin
