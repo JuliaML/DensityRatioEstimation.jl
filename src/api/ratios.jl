@@ -16,6 +16,9 @@ Evaluate density ratio `r` at point `x`.
 """
 evaluate(r::DensityRatio, x::AbstractVector) = @error "not implemented"
 
+#------------------
+# IMPLEMENTATIONS
+#------------------
 """
     DiscreteDensityRatio(points, ratios)
 
@@ -28,6 +31,17 @@ struct DiscreteDensityRatio{P<:AbstractVector,V<:AbstractVector} <: DensityRatio
   ratios::V
 end
 
+# TODO: implement interpolation scheme for discrete density ratio
+evaluate(r::DiscreteDensityRatio, x::AbstractVector) = @error "not implemented"
+
+"""
+    getindex(r, inds)
+
+Return the ratio values stored in the indices
+`inds` of discrete density ratio `r`.
+"""
+Base.getindex(r::DiscreteDensityRatio, inds) = r.ratios[inds]
+
 """
     FunctionalDensityRatio(func)
 
@@ -37,3 +51,5 @@ functional form `func`.
 struct FunctionalDensityRatio{F<:Function} <: DensityRatio
   func::F
 end
+
+evaluate(r::FunctionalDensityRatio, x::AbstractVector) = r.func(x)

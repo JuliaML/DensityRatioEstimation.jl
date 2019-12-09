@@ -37,6 +37,7 @@ export
   DensityRatio,
   DiscreteDensityRatio,
   FunctionalDensityRatio,
+  evaluate,
 
   # estimators
   DensityRatioEstimator,
