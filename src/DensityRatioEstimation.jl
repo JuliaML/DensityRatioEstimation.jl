@@ -14,6 +14,9 @@ include("api/ratios.jl")
 include("api/optlibs.jl")
 include("api/estimators.jl")
 
+# utility functions
+include("utils.jl")
+
 # available estimators
 include("kliep.jl")
 

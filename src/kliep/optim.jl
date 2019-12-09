@@ -4,7 +4,7 @@
 
 using .Optim
 
-function _density_ratio(x_nu, x_de, dre::KLIEP, opl::Type{OptimLib})
+function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
   # retrieve parameters
   σ, b = dre.σ, dre.b
 
@@ -19,21 +19,11 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, opl::Type{OptimLib})
   basis = sample(1:n_nu, b, replace=false)
 
   # constants for objective
-  Φ = Matrix{Float64}(undef, n_nu, b)
-  for l in 1:b
-    xₗ = x_nu[basis[l]]
-    for k in 1:n_nu
-      xₖ = x_nu[k]
-      Φ[k,l] = kern(xₖ, xₗ)
-    end
-  end
+  K = gaussian_gramian(x_nu, x_nu[basis], σ=σ)
 
   # constants for equality constraints
-  A = Matrix{Float64}(undef, 1, b)
-  for l in 1:b
-    xₗ = x_nu[basis[l]]
-    A[l] = sum(kern(x_de[k], xₗ) for k in 1:n_de)
-  end
+  P = gaussian_gramian(x_de, x_nu[basis], σ=σ)
+  A = sum(P, dims=1)
   lc = uc = [n_de]
 
   # constants for inequality constraints
@@ -41,17 +31,17 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, opl::Type{OptimLib})
   ux = fill(Inf, b)
 
   # objective
-  f(α) = -sum(log, Φ*α)
+  f(α) = -sum(log, K*α)
   function ∇f!(g, α)
-    p = Φ*α
+    p = K*α
     for l in 1:b
-      g[l] = -sum(Φ[j,l] / p[j] for j in 1:n_nu)
+      g[l] = -sum(K[j,l] / p[j] for j in 1:n_nu)
     end
   end
   function ∇²f!(h, α)
-    p = Φ*α
+    p = K*α
     for k in 1:b, l in 1:b
-      h[k,l] = sum(view(Φ,:,k) .* view(Φ,:,l) ./ p)
+      h[k,l] = sum(view(K,:,k) .* view(K,:,l) ./ p)
     end
   end
 
@@ -73,9 +63,9 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, opl::Type{OptimLib})
 
   # optimal weights
   α = solution.minimizer
-  weights = map(1:n_de) do i
-    sum(α[l] * kern(x_de[i], x_nu[c]) for (l, c) in enumerate(basis))
-  end
 
-  weights
+  # density ratios
+  r = P*α
+
+  DiscreteDensityRatio(x_de, r)
 end

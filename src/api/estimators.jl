@@ -28,10 +28,8 @@ density_ratio(x_nu, x_de, dre::DensityRatioEstimator;
   _density_ratio(x_nu, x_de, dre, optlib)
 
 # internal function with implementation
-_density_ratio(x_nu, x_de,
-               dre::DensityRatioEstimator,
-               opl::Type{O}) where {O<:OptimizationLibrary} =
-  @error "not implemented"
+_density_ratio(x_nu, x_de, dre::DensityRatioEstimator,
+               optlib) = @error "not implemented"
 
 # default optimization library for estimator
 _default_optlib(dre::DensityRatioEstimator) = @error "not implemented"
