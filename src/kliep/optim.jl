@@ -8,9 +8,6 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
   # retrieve parameters
   σ, b = dre.σ, dre.b
 
-  # Gaussian kernel
-  kern(x, y) = exp(-norm(x - y)^2 / (2σ^2))
-
   # number of numerator and denominator samples
   n_nu = length(x_nu)
   n_de = length(x_de)

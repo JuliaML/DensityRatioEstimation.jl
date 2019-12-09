@@ -9,13 +9,6 @@ A ratio of two probability density functions.
 """
 abstract type DensityRatio end
 
-"""
-    evaluate(r, x)
-
-Evaluate density ratio `r` at point `x`.
-"""
-evaluate(r::DensityRatio, x::AbstractVector) = @error "not implemented"
-
 #------------------
 # IMPLEMENTATIONS
 #------------------
@@ -32,7 +25,7 @@ struct DiscreteDensityRatio{P<:AbstractVector,V<:AbstractVector} <: DensityRatio
 end
 
 # TODO: implement interpolation scheme for discrete density ratio
-evaluate(r::DiscreteDensityRatio, x::AbstractVector) = @error "not implemented"
+(r::DiscreteDensityRatio)(x) = @error "not implemented"
 
 """
     getindex(r, inds)
@@ -52,4 +45,4 @@ struct FunctionalDensityRatio{F<:Function} <: DensityRatio
   func::F
 end
 
-evaluate(r::FunctionalDensityRatio, x::AbstractVector) = r.func(x)
+(r::FunctionalDensityRatio)(x) = r.func(x)
