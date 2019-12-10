@@ -21,8 +21,7 @@ function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   # optimization problem
   model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
   @variable(model, β[1:m])
-  J = @expression(model, (1/2)*β'*K*β - κ'*β)
-  @objective(model, Min, J)
+  @objective(model, Min, (1/2) * sum(β[i]*K[i,j]*β[j] for i in 1:m, j in 1:m) - sum(κ[i]*β[i] for i in 1:m))
   @constraint(model, 0 .≤ β .≤ B)
   @constraint(model, (1-ϵ)m ≤ sum(β) ≤ (1+ϵ)m)
 
