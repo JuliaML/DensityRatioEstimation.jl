@@ -13,5 +13,5 @@ function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
   Kdede = gaussian_gramian(x_de, x_de, σ=σ)
   Kdenu = gaussian_gramian(x_de, x_nu, σ=σ)
 
-  # TODO: invert system with \ operator
+  # TODO: return closed form solution
 end

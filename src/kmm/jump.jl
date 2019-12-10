@@ -12,13 +12,11 @@ function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   # number of numerator and denominator samples
   m′, m = length(x_nu), length(x_de)
 
-  # ϵ ∼ O(B/√m) (Huang et al. 2006.)
-  ϵ = B / √m
-
   # constants for objective and constraints
   K = gaussian_gramian(x_de, x_de, σ=σ)
   A = gaussian_gramian(x_de, x_nu, σ=σ)
   κ = (m / m′) * sum(A, dims=2)
+  ϵ = B / √m
 
   # optimization problem
   model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
@@ -28,7 +26,7 @@ function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   @constraint(model, 0 .≤ β .≤ B)
   @constraint(model, (1-ϵ)m ≤ sum(β) ≤ (1+ϵ)m)
 
-  # solve the optimization problem
+  # solve the problem
   optimize!(model)
 
   # density ratio
