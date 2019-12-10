@@ -5,7 +5,7 @@
     for (dre, optlib) in [(KMM(),   JuMPLib),
                           (KLIEP(), OptimLib),
                           (KLIEP(), ConvexLib)]
-      r = density_ratio(x_nu, x_de, dre, optlib=optlib)
+      r = densratio(x_nu, x_de, dre, optlib=optlib)
       @test all(r .> 0)
     end
   end

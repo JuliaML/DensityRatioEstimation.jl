@@ -4,7 +4,7 @@
 
 using .Optim
 
-function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
+function _densratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
   # retrieve parameters
   σ, b = dre.σ, dre.b
 

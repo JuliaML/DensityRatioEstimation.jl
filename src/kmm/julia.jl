@@ -2,7 +2,7 @@
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-function _density_ratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
+function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
   # retrieve parameters
   σ = dre.σ
 

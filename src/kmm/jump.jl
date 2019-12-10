@@ -5,7 +5,7 @@
 using .JuMP
 using .Ipopt
 
-function _density_ratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
+function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   # retrieve parameters
   σ, B = dre.σ, dre.B
 
@@ -23,7 +23,8 @@ function _density_ratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   # optimization problem
   model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
   @variable(model, β[1:m])
-  @objective(model, Min, (1/2)*β'*K*β - κ'*β)
+  J = @expression(model, (1/2)*β'*K*β - κ'*β)
+  @objective(model, Min, J)
   @constraint(model, 0 .≤ β .≤ B)
   @constraint(model, (1-ϵ)m ≤ sum(β) ≤ (1+ϵ)m)
 

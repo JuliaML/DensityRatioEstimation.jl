@@ -50,6 +50,6 @@ export
   JuMPLib,
 
   # functions
-  density_ratio
+  densratio
 
 end # module

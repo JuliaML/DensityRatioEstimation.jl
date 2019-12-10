@@ -5,7 +5,7 @@
 import .Convex
 import .ECOS: ECOSSolver
 
-function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{ConvexLib})
+function _densratio(x_nu, x_de, dre::KLIEP, optlib::Type{ConvexLib})
   # retrieve parameters
   σ, b = dre.σ, dre.b
 

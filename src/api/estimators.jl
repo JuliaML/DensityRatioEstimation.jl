@@ -10,7 +10,7 @@ A method for density ratio estimation.
 abstract type DensityRatioEstimator end
 
 """
-    density_ratio(x_nu, x_de, dre; [optlib])
+    densratio(x_nu, x_de, dre; [optlib])
 
 Estimate density ratio `p_nu(x) / p_de(x)` with estimator
 `dre` and optimization library `optlib`.
@@ -23,13 +23,13 @@ the list below:
 * `ConvexLib` - Implementation with Convex.jl
 * `JuMPLib`   - Implementation with JuMP.jl
 """
-density_ratio(x_nu, x_de, dre::DensityRatioEstimator;
-              optlib=_default_optlib(dre)) =
-  _density_ratio(x_nu, x_de, dre, optlib)
+densratio(x_nu, x_de, dre::DensityRatioEstimator;
+          optlib=_default_optlib(dre)) =
+  _densratio(x_nu, x_de, dre, optlib)
 
 # internal function with implementation
-_density_ratio(x_nu, x_de, dre::DensityRatioEstimator,
-               optlib) = @error "not implemented"
+_densratio(x_nu, x_de, dre::DensityRatioEstimator,
+           optlib) = @error "not implemented"
 
 # default optimization library for estimator
 _default_optlib(dre::DensityRatioEstimator) = @error "not implemented"
