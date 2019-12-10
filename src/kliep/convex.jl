@@ -20,12 +20,13 @@ function _densratio(x_nu, x_de, dre::KLIEP, optlib::Type{ConvexLib})
   P = gaussian_gramian(x_de, x_nu[basis], σ=σ)
   p = sum(P, dims=1)
 
-  # objective function
+  # objective function and constraints
   α = Convex.Variable(b); w = K*α
-  J = sum(log(w[i]) for i in 1:n_nu)
+  objective   = sum(log(w[i]) for i in 1:n_nu)
+  constraints = [α ≥ 0, dot(α,p) == n_de]
 
   # optimization problem
-  problem = Convex.maximize(J, [α ≥ 0, dot(α,p) == n_de])
+  problem = Convex.maximize(objective, constraints)
 
   # solve problem with ECOS solver
   Convex.solve!(problem, ECOSSolver(verbose=false))
