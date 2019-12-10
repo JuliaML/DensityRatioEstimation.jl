@@ -9,8 +9,7 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
   σ, b = dre.σ, dre.b
 
   # number of numerator and denominator samples
-  n_nu = length(x_nu)
-  n_de = length(x_de)
+  n_nu, n_de = length(x_nu), length(x_de)
 
   # basis for kernel approximation
   basis = sample(1:n_nu, b, replace=false)
@@ -58,9 +57,9 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
   # solve problem with interior-point primal-dual Newton
   solution = optimize(objective, constraints, initguess, IPNewton())
 
-  # optimal weights
+  # optimal coefficients
   α = solution.minimizer
 
   # density ratios
-  r = P*α
+  P*α
 end

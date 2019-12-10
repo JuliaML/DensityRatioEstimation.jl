@@ -10,8 +10,7 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{ConvexLib})
   σ, b = dre.σ, dre.b
 
   # number of numerator and denominator samples
-  n_nu = length(x_nu)
-  n_de = length(x_de)
+  n_nu, n_de = length(x_nu), length(x_de)
 
   # basis for kernel approximation
   basis = sample(1:n_nu, b, replace=false)
@@ -31,6 +30,9 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{ConvexLib})
   # solve problem with ECOS solver
   Convex.solve!(problem, ECOSSolver(verbose=false))
 
+  # optimal coefficients
+  a = vec(α.value)
+
   # density ratio
-  r = P*vec(α.value)
+  P*a
 end

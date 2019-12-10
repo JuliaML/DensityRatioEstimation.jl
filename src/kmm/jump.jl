@@ -10,8 +10,7 @@ function _density_ratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   σ = dre.σ
 
   # number of numerator and denominator samples
-  n_nu = length(x_nu)
-  n_de = length(x_de)
+  n_nu, n_de = length(x_nu), length(x_de)
 
   # constants for objective and constraints
   Kdede = gaussian_gramian(x_de, x_de, σ=σ)
@@ -21,8 +20,8 @@ function _density_ratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
   @variable(model, r[1:n_de])
   @objective(model, Min, 1 / n_de ^ 2 * sum(r[i] * Kdede[i,j] * r[j] for i = 1:n_de, j=1:n_de) - 2 / (n_de * n_nu) * sum(r[i] * Kdenu[i,j] for i = 1:n_de, j=1:n_nu))
-  @constraint(model, r .>= 0)
-  @constraint(model, 1 / n_de * sum(r) == 1)
+  @constraint(model, r .≥ 0)
+  @constraint(model, sum(r) == n_de)
 
   # solve the optimization problem
   optimize!(model)
