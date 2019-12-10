@@ -10,6 +10,7 @@ Kernel Mean Matching (KMM).
 ## Parameters
 
 * `σ` - Bandwidth of Gaussian kernel (default to `1.0`)
+* `B` - Maximum discrepancy allowed (default to `1.0`)
 
 ## References
 
@@ -18,8 +19,10 @@ Kernel Mean Matching (KMM).
 """
 struct KMM{T} <: DensityRatioEstimator
   σ::T
+  B::T
 end
 
+KMM(σ) = KMM(σ, 1.0)
 KMM() = KMM(1.0)
 
 _default_optlib(dre::KMM) = JuMPLib

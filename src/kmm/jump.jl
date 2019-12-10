@@ -7,25 +7,29 @@ using .Ipopt
 
 function _density_ratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   # retrieve parameters
-  σ = dre.σ
+  σ, B = dre.σ, dre.B
 
   # number of numerator and denominator samples
-  n_nu, n_de = length(x_nu), length(x_de)
+  m′, m = length(x_nu), length(x_de)
+
+  # ϵ ∼ O(B/√m) (Huang et al. 2006.)
+  ϵ = B / √m
 
   # constants for objective and constraints
-  Kdede = gaussian_gramian(x_de, x_de, σ=σ)
-  Kdenu = gaussian_gramian(x_de, x_nu, σ=σ)
+  K = gaussian_gramian(x_de, x_de, σ=σ)
+  A = gaussian_gramian(x_de, x_nu, σ=σ)
+  κ = (m / m′) * sum(A, dims=2)
 
   # optimization problem
   model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
-  @variable(model, r[1:n_de])
-  @objective(model, Min, 1 / n_de ^ 2 * sum(r[i] * Kdede[i,j] * r[j] for i = 1:n_de, j=1:n_de) - 2 / (n_de * n_nu) * sum(r[i] * Kdenu[i,j] for i = 1:n_de, j=1:n_nu))
-  @constraint(model, r .≥ 0)
-  @constraint(model, sum(r) == n_de)
+  @variable(model, β[1:m])
+  @objective(model, Min, (1/2)*β'*K*β - κ'*β)
+  @constraint(model, 0 .≤ β .≤ B)
+  @constraint(model, (1-ϵ)m ≤ sum(β) ≤ (1+ϵ)m)
 
   # solve the optimization problem
   optimize!(model)
 
   # density ratio
-  value.(r)
+  value.(β)
 end
