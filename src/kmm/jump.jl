@@ -7,7 +7,7 @@ using .Ipopt
 
 function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   # retrieve parameters
-  σ, B = dre.σ, dre.B
+  σ, B, ϵ = dre.σ, dre.B, dre.ϵ
 
   # number of numerator and denominator samples
   m′, m = length(x_nu), length(x_de)
@@ -16,12 +16,11 @@ function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   K = gaussian_gramian(x_de, x_de, σ=σ)
   A = gaussian_gramian(x_de, x_nu, σ=σ)
   κ = (m / m′) * sum(A, dims=2)
-  ϵ = B / √m
 
   # optimization problem
   model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
   @variable(model, β[1:m])
-  @objective(model, Min, (1/2) * sum(β[i]*K[i,j]*β[j] for i in 1:m, j in 1:m) - sum(κ[i]*β[i] for i in 1:m))
+  @objective(model, Min, (1/2) * dot(β, K*β - 2κ))
   @constraint(model, 0 .≤ β .≤ B)
   @constraint(model, (1-ϵ)m ≤ sum(β) ≤ (1+ϵ)m)
 
