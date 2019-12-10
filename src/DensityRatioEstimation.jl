@@ -10,7 +10,6 @@ using LinearAlgebra
 using Distances
 
 # API for density ratio estimation
-include("api/ratios.jl")
 include("api/optlibs.jl")
 include("api/estimators.jl")
 
@@ -40,16 +39,9 @@ function __init__()
 end
 
 export
-  # ratio types
-  DensityRatio,
-  DiscreteDensityRatio,
-  FunctionalDensityRatio,
-
   # estimators
   DensityRatioEstimator,
   KMM, KLIEP,
-
-  MMDAnalytical, # TODO: deprecate
 
   # optim libs
   JuliaLib,

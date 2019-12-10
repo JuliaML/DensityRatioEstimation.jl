@@ -63,6 +63,4 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
 
   # density ratios
   r = P*α
-
-  DiscreteDensityRatio(x_de, r)
 end

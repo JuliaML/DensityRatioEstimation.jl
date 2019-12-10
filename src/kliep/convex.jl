@@ -33,6 +33,4 @@ function _density_ratio(x_nu, x_de, dre::KLIEP, optlib::Type{ConvexLib})
 
   # density ratio
   r = P*vec(α.value)
-
-  DiscreteDensityRatio(x_de, r)
 end
