@@ -4,14 +4,15 @@
 
 function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
   # retrieve parameters
-  σ = dre.σ
+  σ, B, ϵ = dre.σ, dre.B, dre.ϵ
 
   # number of numerator and denominator samples
-  n_nu, n_de = length(x_nu), length(x_de)
+  m′, m = length(x_nu), length(x_de)
 
   # constants for objective and constraints
-  Kdede = gaussian_gramian(x_de, x_de, σ=σ)
-  Kdenu = gaussian_gramian(x_de, x_nu, σ=σ)
+  K = gaussian_gramian(x_de, x_de, σ=σ)
+  A = gaussian_gramian(x_de, x_nu, σ=σ)
+  κ = (m / m′) * sum(A, dims=2)
 
-  # TODO: return closed form solution
+  # TODO: implement closed form solution
 end
