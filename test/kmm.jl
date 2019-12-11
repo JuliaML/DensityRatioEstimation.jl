@@ -5,7 +5,7 @@
   x_nu, x_de = rand(d_nu, 2000), rand(d_de, 1000)
 
   # estimated density ratio
-  σ, B, ϵ = 1.0, 100.0, 0.01
+  σ, B, ϵ = 1.0, Inf, 0.01
   r̂ = densratio(x_nu, x_de, KMM(σ, B, ϵ))
 
   # simplex constraints

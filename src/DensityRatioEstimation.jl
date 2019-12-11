@@ -21,7 +21,7 @@ include("kmm.jl")
 include("kliep.jl")
 
 # pure Julia implementations
-include("kmm/julia.jl")
+# (none at the moment...)
 
 # implementations that require extra dependencies
 using Requires

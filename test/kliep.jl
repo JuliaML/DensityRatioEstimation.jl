@@ -2,7 +2,7 @@
   for (i, pair) in enumerate([pair₁, pair₂])
     d_nu, d_de = pair
     Random.seed!(123)
-    x_nu, x_de = rand(d_nu, 2000), rand(d_de, 1000)
+    x_nu, x_de = rand(d_nu, 1000), rand(d_de, 500)
 
     # estimated density ratio
     σ, b = 1.0, 100
