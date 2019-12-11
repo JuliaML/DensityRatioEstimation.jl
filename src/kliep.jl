@@ -16,13 +16,14 @@ Kullback-Leibler importance estimation procedure (KLIEP).
 
 * Sugiyama et al. 2008. Direct importance estimation for
   covariate shift adaptation.
+
+### Author
+
+* Júlio Hoffimann (julio.hoffimann@gmail.com)
 """
-struct KLIEP{T} <: DensityRatioEstimator
-  σ::T
-  b::Int
+@with_kw struct KLIEP{T} <: DensityRatioEstimator
+  σ::T=1.0
+  b::Int=100
 end
 
-KLIEP(σ) = KLIEP(σ, 100)
-KLIEP() = KLIEP(1.0)
-
-_default_optlib(dre::KLIEP) = OptimLib
+_default_optlib(dre::Type{<:KLIEP}) = OptimLib

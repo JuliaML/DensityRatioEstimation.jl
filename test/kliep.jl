@@ -5,8 +5,7 @@
     x_nu, x_de = rand(d_nu, 1000), rand(d_de, 500)
 
     # estimated density ratio
-    σ, b = 1.0, 100
-    r̂ = densratio(x_nu, x_de, KLIEP(σ, b))
+    r̂ = densratio(x_nu, x_de, KLIEP(σ=1.0, b=100))
 
     if visualtests
       gr(size=(800,800))

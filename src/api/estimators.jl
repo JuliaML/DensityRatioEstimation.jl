@@ -24,7 +24,7 @@ the list below:
 * `JuMPLib`   - Implementation with JuMP.jl
 """
 densratio(x_nu, x_de, dre::DensityRatioEstimator;
-          optlib=_default_optlib(dre)) =
+          optlib=_default_optlib(typeof(dre))) =
   _densratio(x_nu, x_de, dre, optlib)
 
 # internal function with implementation
@@ -32,4 +32,5 @@ _densratio(x_nu, x_de, dre::DensityRatioEstimator,
            optlib) = @error "not implemented"
 
 # default optimization library for estimator
-_default_optlib(dre::DensityRatioEstimator) = @error "not implemented"
+_default_optlib(dre::Type{DensityRatioEstimator}) =
+  @error "not implemented"

@@ -8,6 +8,7 @@ using StatsBase
 using Statistics
 using LinearAlgebra
 using Distances
+using Parameters
 
 # API for density ratio estimation
 include("api/optlibs.jl")

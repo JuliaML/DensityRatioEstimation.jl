@@ -6,7 +6,7 @@
 
   # estimated density ratio
   σ, B, ϵ = 1.0, Inf, 0.01
-  r̂ = densratio(x_nu, x_de, KMM(σ, B, ϵ))
+  r̂ = densratio(x_nu, x_de, KMM(σ=σ, B=B, ϵ=ϵ))
 
   # simplex constraints
   @test abs(mean(r̂) - 1) ≤ ϵ

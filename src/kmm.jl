@@ -17,15 +17,15 @@ Kernel Mean Matching (KMM).
 
 * Huang et al. 2006. Correcting sample selection bias by
   unlabeled data.
+
+### Author
+
+* Júlio Hoffimann (julio.hoffimann@gmail.com)
 """
-struct KMM{T} <: DensityRatioEstimator
-  σ::T
-  B::T
-  ϵ::T
+@with_kw struct KMM{T} <: DensityRatioEstimator
+  σ::T=1.0
+  B::T=Inf
+  ϵ::T=0.01
 end
 
-KMM(σ, B) = KMM(σ, B, 0.01)
-KMM(σ) = KMM(σ, Inf)
-KMM() = KMM(1.0)
-
-_default_optlib(dre::KMM) = JuMPLib
+_default_optlib(dre::Type{<:KMM}) = JuMPLib
