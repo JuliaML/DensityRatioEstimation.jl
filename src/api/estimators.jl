@@ -13,7 +13,9 @@ abstract type DensityRatioEstimator end
     densratio(x_nu, x_de, dre; [optlib])
 
 Estimate density ratio `p_nu(x) / p_de(x)` with estimator
-`dre` and optimization library `optlib`.
+`dre` and optimization library `optlib`. `x_nu` and `x_de`
+are indexable collections of numerator and denominator
+samples, respectively.
 
 Optionally choose an optimization library `optlib` from
 the list below:
@@ -27,10 +29,35 @@ densratio(x_nu, x_de, dre::DensityRatioEstimator;
           optlib=_default_optlib(typeof(dre))) =
   _densratio(x_nu, x_de, dre, optlib)
 
-# internal function with implementation
-_densratio(x_nu, x_de, dre::DensityRatioEstimator,
-           optlib) = @error "not implemented"
+"""
+    fit(dre, x_nu, x_de; [optlib])
 
-# default optimization library for estimator
+Perform hyperparameter tuning of density ratio
+estimator `dre` with numerator and denominator
+samples, `x_nu` and `x_de`. Optinally, specify
+the optimization library `optlib`.
+
+### Notes
+
+Hyperparameter tuning is not defined for all
+density ratio estimators. Therefore, this
+function may not work with some estimators.
+"""
+fit(dre::Type{<:DensityRatioEstimator}, x_nu, x_de;
+    optlib=_default_optlib(dre)) =
+  _fit(dre, x_nu, x_de, optlib)
+
+###################################################
+## functions to be implemented by new estimators ##
+###################################################
+
+_densratio(x_nu, x_de, dre::DensityRatioEstimator,
+           optlib::Type{OptimizationLibrary}) =
+  @error "not implemented"
+
+_fit(dre::Type{DensityRatioEstimator}, x_nu, x_de,
+     optlib::Type{OptimizationLibrary}) =
+  @error "not implemented"
+
 _default_optlib(dre::Type{DensityRatioEstimator}) =
   @error "not implemented"

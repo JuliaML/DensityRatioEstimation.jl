@@ -10,6 +10,9 @@ using LinearAlgebra
 using Distances
 using Parameters
 
+# implement fit for estimators
+import StatsBase: fit
+
 # API for density ratio estimation
 include("api/optlibs.jl")
 include("api/estimators.jl")
@@ -22,7 +25,7 @@ include("kmm.jl")
 include("kliep.jl")
 
 # pure Julia implementations
-# (none at the moment...)
+include("kmm/julia.jl")
 
 # implementations that require extra dependencies
 using Requires
@@ -51,6 +54,7 @@ export
   JuMPLib,
 
   # functions
-  densratio
+  densratio,
+  fit
 
 end # module
