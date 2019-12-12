@@ -13,9 +13,8 @@ abstract type DensityRatioEstimator end
     densratio(x_nu, x_de, dre; [optlib])
 
 Estimate density ratio `p_nu(x) / p_de(x)` with estimator
-`dre` and optimization library `optlib`. `x_nu` and `x_de`
-are indexable collections of numerator and denominator
-samples, respectively.
+`dre` and indexable collections of numerator and denominator
+samples, `x_nu` and `x_de`.
 
 Optionally choose an optimization library `optlib` from
 the list below:
