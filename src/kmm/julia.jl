@@ -4,7 +4,7 @@
 
 function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
   # retrieve parameters
-  σ, B, ϵ = dre.σ, dre.B, dre.ϵ
+  @unpack σ, B, ϵ, λ = dre
 
   # warn user that closed-form solution does
   # not consider probability simplex constraints
@@ -19,5 +19,5 @@ function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
   Kdenu = gaussian_gramian(x_de, x_nu, σ=σ)
 
   # closed-form solution (without constraints)
-  (n_de / n_nu) * Kdede \ (Kdenu * ones(n_nu))
+  (n_de / n_nu) * (Kdede + λ*I) \ vec(sum(Kdenu, dims=2))
 end

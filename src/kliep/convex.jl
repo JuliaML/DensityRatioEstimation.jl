@@ -7,7 +7,7 @@ import .ECOS: ECOSSolver
 
 function _densratio(x_nu, x_de, dre::KLIEP, optlib::Type{ConvexLib})
   # retrieve parameters
-  σ, b = dre.σ, dre.b
+  @unpack σ, b = dre
 
   # number of numerator and denominator samples
   n_nu, n_de = length(x_nu), length(x_de)

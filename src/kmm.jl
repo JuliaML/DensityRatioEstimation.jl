@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------
 
 """
-    KMM(σ=1.0, B=100.0, ϵ=0.01)
+    KMM(σ=1.0, B=Inf, ϵ=0.01, λ=0.0)
 
 Kernel Mean Matching (KMM).
 
@@ -26,6 +26,7 @@ Kernel Mean Matching (KMM).
   σ::T=1.0
   B::T=Inf
   ϵ::T=0.01
+  λ::T=0.0
 end
 
 _default_optlib(dre::Type{<:KMM}) = JuMPLib

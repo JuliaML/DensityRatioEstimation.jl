@@ -7,7 +7,11 @@ using .Ipopt
 
 function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   # retrieve parameters
-  σ, B, ϵ = dre.σ, dre.B, dre.ϵ
+  @unpack σ, B, ϵ, λ = dre
+
+  # warn user that original convex problem formulation
+  # does not consider regularization parameter
+  iszero(λ) || @warn "λ parameter ignored when optlib=JuMPLib"
 
   # number of numerator and denominator samples
   m′, m = length(x_nu), length(x_de)
