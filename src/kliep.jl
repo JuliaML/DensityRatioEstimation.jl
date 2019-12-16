@@ -42,7 +42,7 @@ function _densratiofunc(x_nu, x_de, dre::KLIEP,
   α = _kliep_coeffs(x_nu, x_de, c, dre, optlib)
   function r(x)
     K = gaussian_gramian([x], x_nu[c], σ=dre.σ)
-    K*α
+    dot(K, α)
   end
 end
 
