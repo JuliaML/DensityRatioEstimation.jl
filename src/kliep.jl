@@ -27,7 +27,3 @@ Kullback-Leibler importance estimation procedure (KLIEP).
 end
 
 _default_optlib(dre::Type{<:KLIEP}) = OptimLib
-
-function _fit(DRE::Type{<:KLIEP}, x_nu, x_de,
-              optlib::Type{<:OptimizationLibrary})
-end
