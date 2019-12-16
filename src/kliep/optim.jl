@@ -11,6 +11,8 @@ function _densratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
   # number of numerator and denominator samples
   n_nu, n_de = length(x_nu), length(x_de)
 
+  @assert b ≤ n_nu "more basis elements than numerator samples"
+
   # basis for kernel approximation
   basis = sample(1:n_nu, b, replace=false)
 
