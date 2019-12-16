@@ -30,26 +30,44 @@ function _fit(::Type{<:KLIEP}, x_nu, x_de,
   # retrieve parameters
   ranges = fitter.ranges
   nfolds = fitter.nfolds
-  n_nu   = length(x_nu)
+  npts   = length(x_nu)
 
-  @assert nfolds ≤ n_nu "number of folds must be smaller than number of numerator samples"
+  @assert nfolds ≤ npts "number of folds must be smaller than number of numerator samples"
 
   # partition numerator samples into folds
-  folds = collect(Iterators.partition(1:n_nu, n_nu ÷ nfolds))
+  folds = collect(Iterators.partition(1:npts, npts ÷ nfolds))
+
+  # initialize loss and optimal estimator
+  Ĵmin, dre⭐ = Inf, KLIEP()
 
   # loop over hyperparameters
   for σ in ranges.σ, b in ranges.b
+    # density ratio estimator
+    dre = KLIEP(σ=σ, b=b)
+
     # estimate loss with cross-validation
-    for k in 1:nfolds
+    Ĵₖ = map(1:nfolds) do k
       # training and hold-out samples
       train = [ind for i in vcat(1:k-1, k+1:nfolds) for ind in folds[i]]
       hold  = folds[k]
 
-      # perform density ratio estimation with training samples
-      r = densratiofunc(x_nu[train], x_de, KLIEP(σ=σ, b=b), optlib=optlib)
+      # perform estimation with training samples
+      r = densratiofunc(x_nu[train], x_de, dre, optlib=optlib)
 
-      # evaluate ratio function at hold-out samples
-      w = [r(x_nu[j]) for j in hold]
+      # evaluate loss with hold-out samples
+      mean(log(r(x_nu[j])) for j in hold)
+    end
+
+    # mean loss for hyperparameters
+    Ĵ = mean(Ĵₖ)
+
+    # update and continue
+    if Ĵ < Ĵmin
+      Ĵmin = Ĵ
+      dre⭐ = dre
     end
   end
+
+  # optimal estimator
+  dre⭐
 end
