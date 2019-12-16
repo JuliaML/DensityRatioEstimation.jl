@@ -15,6 +15,7 @@ import StatsBase: fit
 # API for density ratio estimation
 include("api/optlibs.jl")
 include("api/estimators.jl")
+include("api/fitters.jl")
 
 # utility functions
 include("utils.jl")
@@ -22,6 +23,9 @@ include("utils.jl")
 # available estimators
 include("kmm.jl")
 include("kliep.jl")
+
+# available estimator fitters
+include("lcv.jl")
 
 # pure Julia implementations
 include("kmm/julia.jl")
@@ -42,18 +46,20 @@ function __init__()
 end
 
 export
-  # estimators
-  DensityRatioEstimator,
-  KMM, KLIEP,
-
   # optim libs
   JuliaLib,
   OptimLib,
   ConvexLib,
   JuMPLib,
 
-  # functions
+  # estimators
+  DensityRatioEstimator,
+  KMM, KLIEP,
   densratio,
+
+  # estimator fitters
+  EstimatorFitter,
+  LCV,
   fit
 
 end # module
