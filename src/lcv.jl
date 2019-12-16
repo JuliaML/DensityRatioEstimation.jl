@@ -27,19 +27,29 @@ LCV(ranges::NamedTuple) = LCV(ranges, 10)
 function _fit(::Type{<:KLIEP}, x_nu, x_de,
               fitter::EstimatorFitter,
               optlib::Type{<:OptimizationLibrary})
+  # retrieve parameters
   ranges = fitter.ranges
   nfolds = fitter.nfolds
-  npts   = length(x_nu)
+  n_nu   = length(x_nu)
 
-  @assert nfolds ≤ npts "number of folds must be smaller than number of points"
+  @assert nfolds ≤ n_nu "number of folds must be smaller than number of numerator samples"
 
-  folds = collect(Iterators.partition(1:npts, npts ÷ nfolds))
+  # partition numerator samples into folds
+  folds = collect(Iterators.partition(1:n_nu, n_nu ÷ nfolds))
 
+  # loop over hyperparameters
   for σ in ranges.σ, b in ranges.b
+    # estimate loss with cross-validation
     for k in 1:nfolds
+      # training and hold-out samples
+      train = [ind for i in vcat(1:k-1, k+1:nfolds) for ind in folds[i]]
       hold  = folds[k]
-      train = folds[vcat(1:k-1,k+1:nfolds)]
-      r = _densratio(x_nu[train], x_de, KLIEP(σ=σ, b=b), optlib)
+
+      # perform density ratio estimation with training samples
+      r = densratiofunc(x_nu[train], x_de, KLIEP(σ=σ, b=b), optlib=optlib)
+
+      # evaluate ratio function at hold-out samples
+      w = [r(x_nu[j]) for j in hold]
     end
   end
 end
