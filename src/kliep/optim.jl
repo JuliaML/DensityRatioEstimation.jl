@@ -23,7 +23,8 @@ function _densratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
   lc = uc = [n_de]
 
   # constants for inequality constraints
-  lx = fill(0.0, b)
+  T = eltype(x_de[1])
+  lx = fill(zero(T), b)
   ux = fill(Inf, b)
 
   # objective
