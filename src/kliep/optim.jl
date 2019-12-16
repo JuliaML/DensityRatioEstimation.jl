@@ -4,23 +4,19 @@
 
 using .Optim
 
-function _densratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
+function _kliep_coeffs(x_nu, x_de, centers::AbstractVector{Int},
+                       dre::KLIEP, optlib::Type{OptimLib})
   # retrieve parameters
   @unpack σ, b = dre
 
   # number of numerator and denominator samples
   n_nu, n_de = length(x_nu), length(x_de)
 
-  @assert b ≤ n_nu "more basis elements than numerator samples"
-
-  # basis for kernel approximation
-  basis = sample(1:n_nu, b, replace=false)
-
   # constants for objective
-  K = gaussian_gramian(x_nu, x_nu[basis], σ=σ)
+  K = gaussian_gramian(x_nu, x_nu[centers], σ=σ)
 
   # constants for equality constraints
-  P = gaussian_gramian(x_de, x_nu[basis], σ=σ)
+  P = gaussian_gramian(x_de, x_nu[centers], σ=σ)
   A = sum(P, dims=1)
   lc = uc = [n_de]
 
@@ -61,8 +57,5 @@ function _densratio(x_nu, x_de, dre::KLIEP, optlib::Type{OptimLib})
   solution = optimize(objective, constraints, initguess, IPNewton())
 
   # optimal coefficients
-  α = solution.minimizer
-
-  # density ratios
-  P*α
+  solution.minimizer
 end

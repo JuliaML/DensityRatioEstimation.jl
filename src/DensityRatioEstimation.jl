@@ -55,6 +55,7 @@ export
   # estimators
   DensityRatioEstimator,
   KMM, KLIEP,
+  densratiofunc,
   densratio,
 
   # estimator fitters
