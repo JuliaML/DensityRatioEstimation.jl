@@ -1,5 +1,6 @@
 using DensityRatioEstimation
 using Distributions
+using LinearAlgebra
 using Optim
 using JuMP, Ipopt
 using Convex, ECOS
