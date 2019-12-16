@@ -7,7 +7,6 @@ module DensityRatioEstimation
 using StatsBase
 using Statistics
 using LinearAlgebra
-using Distances
 using Parameters
 
 # implement fit for estimators
