@@ -38,7 +38,7 @@ function _fit(::Type{<:KLIEP}, x_nu, x_de,
   folds = collect(Iterators.partition(1:npts, npts ÷ nfolds))
 
   # initialize loss and optimal estimator
-  Ĵmin, dre⭐ = Inf, KLIEP()
+  Ĵmax, dre⭐ = -Inf, KLIEP()
 
   # loop over hyperparameters
   for σ in ranges.σ, b in ranges.b
@@ -62,8 +62,8 @@ function _fit(::Type{<:KLIEP}, x_nu, x_de,
     Ĵ = mean(Ĵₖ)
 
     # update and continue
-    if Ĵ < Ĵmin
-      Ĵmin = Ĵ
+    if Ĵ > Ĵmax
+      Ĵmax = Ĵ
       dre⭐ = dre
     end
   end
