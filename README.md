@@ -3,14 +3,14 @@
 [![Build Status](https://travis-ci.com/xukai92/DensityRatioEstimation.jl.svg?branch=master)](https://travis-ci.com/xukai92/DensityRatioEstimation.jl) [![Coverage Status](https://coveralls.io/repos/github/xukai92/DensityRatioEstimation.jl/badge.svg?branch=master)](https://coveralls.io/github/xukai92/DensityRatioEstimation.jl?branch=master)
 
 Given samples `x_nu` and `x_de` from distributions `p_nu` and `p_de`, it is very
-useful to estimate the density ratio `p_nu(x) / p_de(x)` for all valid `x`.
+useful to estimate the density ratio `r(x) = p_nu(x) / p_de(x)` for all valid `x`.
 This problem is known in the literature as the density ratio estimation problem
 ([Sugiyama et al. 2012](https://www.cambridge.org/core/books/density-ratio-estimation-in-machine-learning/BCBEA6AEAADD66569B1E85DDDEAA7648)).
 
 Naive solutions based on the ratio of individual estimators for numerator and
-denominator densities, `p_nu` and `p_de`, perform poorly, particularly in high
-dimensions. This package provides density ratio estimators that perform well
-with a moderately large number of dimensions.
+denominator densities perform poorly, particularly in high dimensions. This
+package provides density ratio estimators that perform well with a moderately
+large number of dimensions.
 
 ## Installation
 
@@ -87,3 +87,9 @@ following tuning strategies are implemented:
 | Tuning  | References |
 | ------- | ---------- |
 | LCV     | [Sugiyama et al. 2008](https://link.springer.com/article/10.1007/s10463-008-0197-x) |
+
+## Authors
+
+Below is the list of authors and maintainers of this package:
+
+**Júlio Hoffimann** ([@juliohm](https://juliohm.github.io), **Kai Xu** ([@xukai92](https://xuk.ai))
