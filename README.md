@@ -79,7 +79,7 @@ dre = fit(KLIEP, x_nu, x_de, LCV(σ=[1.,2.,3.],b=[100]))
 ```
 
 The function returns a `KLIEP` instance with parameters optimized for the samples.
-In this case, the lines uses likelyhood cross-validation `LCV` as the tuning
+In this case, the line uses likelihood cross-validation `LCV` as the tuning
 strategy. It accepts a named tuple with the hyperparameter ranges for `KLIEP`,
 the kernel width `σ` and the number of basis functions `b`. Currently, the
 following tuning strategies are implemented:
