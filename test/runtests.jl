@@ -1,11 +1,41 @@
-using Test
+using DensityRatioEstimation
+using Distributions
+using LinearAlgebra
+using Optim
+using JuMP, Ipopt
+using Convex, ECOS
+using Plots, VisualRegressionTests
+using Test, Pkg, Random
 
-@testset "Tests" begin
-    tests = [
-        "moment_matching.jl",
-    ]
+# workaround GR warnings
+ENV["GKSwstype"] = "100"
 
-    for t in tests
-        include(t)
-    end
+# environment settings
+islinux = Sys.islinux()
+istravis = "TRAVIS" ∈ keys(ENV)
+datadir = joinpath(@__DIR__,"data")
+visualtests = !istravis || (istravis && islinux)
+if !istravis
+  Pkg.add("Gtk")
+  using Gtk
+end
+
+# helper funcions
+include("utils.jl")
+
+# simple cases for testing
+pair₁ = Normal(1,1), Normal(0,2)
+pair₂ = MixtureModel([Normal(-2,1),Normal(2,2)], [0.2,0.8]), Normal(0,2)
+
+# list of tests
+testfiles = [
+  "basic.jl",
+  "kmm.jl",
+  "kliep.jl"
+]
+
+@testset "DensityRatioEstimation.jl" begin
+  for testfile in testfiles
+    include(testfile)
+  end
 end

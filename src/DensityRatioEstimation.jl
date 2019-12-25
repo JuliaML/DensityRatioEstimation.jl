@@ -1,15 +1,66 @@
+# ------------------------------------------------------------------
+# Licensed under the MIT License. See LICENSE in the project root.
+# ------------------------------------------------------------------
+
 module DensityRatioEstimation
 
-using Requires, Parameters, Statistics, LinearAlgebra
+using StatsBase
+using Statistics
+using LinearAlgebra
+using Parameters
 
-include("moment_matching.jl")
-export MMDAnalytical, MMDNumerical
+# implement fit for estimators
+import StatsBase: fit
 
-export estimate_ratio
+# API for density ratio estimation
+include("api/optlibs.jl")
+include("api/estimators.jl")
+include("api/fitters.jl")
 
+# utility functions
+include("utils.jl")
+
+# available estimators
+include("kmm.jl")
+include("kliep.jl")
+
+# available estimator fitters
+include("lcv.jl")
+
+# pure Julia implementations
+include("kmm/julia.jl")
+
+# implementations that require extra dependencies
+using Requires
 function __init__()
-    # The path name `glue` comes from here: https://github.com/JuliaLang/Pkg.jl/issues/1285#issuecomment-525891481
-    @require JuMP="4076af6c-e467-56ae-b986-b466b2749572" @require Ipopt="b6b21f68-93f8-5de0-b562-5493be1d77c9" include("glue/opt.jl")
+  # KMM
+  @require JuMP="4076af6c-e467-56ae-b986-b466b2749572" begin
+    @require Ipopt="b6b21f68-93f8-5de0-b562-5493be1d77c9" include("kmm/jump.jl")
+  end
+
+  # KLIEP
+  @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("kliep/optim.jl")
+  @require Convex="f65535da-76fb-5f13-bab9-19810c17039a" begin
+    @require ECOS="e2685f51-7e38-5353-a97d-a921fd2c8199" include("kliep/convex.jl")
+  end
 end
 
-end
+export
+  # optim libs
+  JuliaLib,
+  OptimLib,
+  ConvexLib,
+  JuMPLib,
+
+  # estimators
+  DensityRatioEstimator,
+  KMM, KLIEP,
+  densratiofunc,
+  densratio,
+
+  # estimator fitters
+  EstimatorFitter,
+  LCV,
+  fit
+
+end # module
