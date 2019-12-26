@@ -92,4 +92,4 @@ following tuning strategies are implemented:
 
 Below is the list of authors and maintainers of this package:
 
-**Júlio Hoffimann** ([@juliohm](https://juliohm.github.io), **Kai Xu** ([@xukai92](https://xuk.ai))
+**Júlio Hoffimann** ([@juliohm](https://juliohm.github.io)), **Kai Xu** ([@xukai92](https://xuk.ai))
