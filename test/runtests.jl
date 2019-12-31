@@ -16,8 +16,8 @@ istravis = "TRAVIS" ∈ keys(ENV)
 datadir = joinpath(@__DIR__, "data")
 visualtests = !istravis || (istravis && islinux)
 if !istravis
-	Pkg.add("Gtk")
-	using Gtk
+  Pkg.add("Gtk")
+  using Gtk
 end
 
 # helper funcions
@@ -29,13 +29,13 @@ pair₂ = MixtureModel([Normal(-2, 1), Normal(2, 2)], [0.2, 0.8]), Normal(0, 2)
 
 # list of tests
 testfiles = [
-	"basic.jl",
-	"kmm.jl",
-	"kliep.jl"
+  "basic.jl",
+  "kmm.jl",
+  "kliep.jl"
 ]
 
 @testset "DensityRatioEstimation.jl" begin 
-	for testfile in testfiles
-		include(testfile)
-	end
+  for testfile in testfiles
+    include(testfile)
+  end
 end
