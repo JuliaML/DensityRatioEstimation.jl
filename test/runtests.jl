@@ -13,29 +13,29 @@ ENV["GKSwstype"] = "100"
 # environment settings
 islinux = Sys.islinux()
 istravis = "TRAVIS" ∈ keys(ENV)
-datadir = joinpath(@__DIR__,"data")
+datadir = joinpath(@__DIR__, "data")
 visualtests = !istravis || (istravis && islinux)
 if !istravis
-  Pkg.add("Gtk")
-  using Gtk
+	Pkg.add("Gtk")
+	using Gtk
 end
 
 # helper funcions
 include("utils.jl")
 
 # simple cases for testing
-pair₁ = Normal(1,1), Normal(0,2)
-pair₂ = MixtureModel([Normal(-2,1),Normal(2,2)], [0.2,0.8]), Normal(0,2)
+pair₁ = Normal(1, 1), Normal(0, 2)
+pair₂ = MixtureModel([Normal(-2, 1), Normal(2, 2)], [0.2, 0.8]), Normal(0, 2)
 
 # list of tests
 testfiles = [
-  "basic.jl",
-  "kmm.jl",
-  "kliep.jl"
+	"basic.jl",
+	"kmm.jl",
+	"kliep.jl"
 ]
 
-@testset "DensityRatioEstimation.jl" begin
-  for testfile in testfiles
-    include(testfile)
-  end
+@testset "DensityRatioEstimation.jl" begin 
+	for testfile in testfiles
+		include(testfile)
+	end
 end

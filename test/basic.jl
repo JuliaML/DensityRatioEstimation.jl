@@ -1,26 +1,33 @@
-@testset "Basic" begin
-  for (d_nu, d_de) in [pair₁, pair₂]
-    Random.seed!(123)
-    x_nu, x_de = rand(d_nu, 100), rand(d_de, 200)
+@testset "Basic" begin 
+	for (i, pair) in enumerate([pair₁, pair₂])
+		d_nu, d_de = pair
+		Random.seed!(123)
+		x_nu, x_de = rand(d_nu, 2_000), rand(d_de, 1_000)
 
-    @testset "Gramian" begin
-      G = DensityRatioEstimation.gaussian_gramian(x_nu, x_de, σ=1.0)
-      @test size(G) == (length(x_nu), length(x_de))
-      @test all(G .> 0)
+		@testset "Gramian" begin
+			G = DensityRatioEstimation.gaussian_gramian(x_nu, x_de, σ=1.0)
+			@test size(G) == (length(x_nu), length(x_de))
+			@test all(G .> 0)
 
-      G = DensityRatioEstimation.gaussian_gramian(x_nu, x_nu, σ=2.0)
-      @test issymmetric(G)
-      @test all(G .> 0)
-    end
+			G = DensityRatioEstimation.gaussian_gramian(x_nu, x_nu, σ=2.0)
+			@test issymmetric(G)
+			@test all(G .> 0)
+		end
 
-    @testset "$dre -- $optlib" for (dre, optlib) in [(KMM(),   JuMPLib),
-                                                     (KLIEP(), OptimLib),
-                                                     (KLIEP(), ConvexLib)]
+		@testset "$drestr -- $optlib" for (drestr, dre, optlib) in [
+			("KMM",	  KMM(σ=1.5, B=Inf, ϵ=0.01, λ=0.001), JuMPLib),
+			("KLIEP", KLIEP(), ConvexLib)
+		]
+			r̂ = densratio(x_nu, x_de, dre, optlib=optlib)
 
-      r = densratio(x_nu, x_de, dre, optlib=optlib)
+			# density ratios must be positive
+			@test all(r̂ .> 0)
 
-      # density ratios must be positive
-      @test all(r .> 0)
-    end
-  end
+			if i == 1
+				# compare against true ratio
+				r = pdf.(d_nu, x_de) ./ pdf.(d_de, x_de)
+				@test r ≈ r̂ rtol=2e-1
+			end
+		end
+	end
 end
