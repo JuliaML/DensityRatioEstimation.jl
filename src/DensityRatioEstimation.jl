@@ -47,6 +47,7 @@ end
 
 export
   # optim libs
+  OptimizationLibrary,
   JuliaLib,
   OptimLib,
   ConvexLib,
