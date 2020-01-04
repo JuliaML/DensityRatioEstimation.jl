@@ -56,6 +56,7 @@ export
   # estimators
   DensityRatioEstimator,
   KMM, KLIEP,
+  default_optlib,
   densratiofunc,
   densratio,
 
