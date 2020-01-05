@@ -13,21 +13,5 @@
       @test issymmetric(G)
       @test all(G .> 0)
     end
-
-    @testset "$drestr -- $optlib" for (drestr, dre, optlib) in [
-      ("KMM",	  KMM(σ=1.5, B=Inf, ϵ=0.01, λ=0.001), JuMPLib),
-      ("KLIEP", KLIEP(), ConvexLib)
-    ]
-      r̂ = densratio(x_nu, x_de, dre, optlib=optlib)
-
-      # density ratios must be positive
-      @test all(r̂ .> 0)
-
-      if i == 1
-        # compare against true ratio
-        r = pdf.(d_nu, x_de) ./ pdf.(d_de, x_de)
-        @test r ≈ r̂ rtol=2e-1
-      end
-    end
   end
 end
