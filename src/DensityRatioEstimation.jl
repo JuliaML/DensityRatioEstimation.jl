@@ -47,6 +47,7 @@ end
 
 export
   # optim libs
+  OptimizationLibrary,
   JuliaLib,
   OptimLib,
   ConvexLib,
@@ -55,6 +56,7 @@ export
   # estimators
   DensityRatioEstimator,
   KMM, KLIEP,
+  default_optlib,
   densratiofunc,
   densratio,
 

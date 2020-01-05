@@ -29,4 +29,4 @@ Kernel Mean Matching (KMM).
   λ::T=0.0
 end
 
-_default_optlib(dre::Type{<:KMM}) = JuliaLib
+default_optlib(dre::Type{<:KMM}) = JuliaLib
