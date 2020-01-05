@@ -2,7 +2,7 @@
   for (i, pair) in enumerate([pair₁, pair₂])
     d_nu, d_de = pair
     Random.seed!(123)
-    x_nu, x_de = rand(d_nu, 2_000), rand(d_de, 1_000)
+    x_nu, x_de = rand(d_nu, 100), rand(d_de, 200)
 
     @testset "Gramian" begin
       G = DensityRatioEstimation.gaussian_gramian(x_nu, x_de, σ=1.0)
