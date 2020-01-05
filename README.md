@@ -28,7 +28,7 @@ Given two indexable collections `x_nu` and `x_de` of samples from `p_nu` and
 ```julia
 using DensityRatioEstimation, Optim
 
-r = densratio(x_nu, x_de, KLIEP(), optlib=JumpLib)
+r = densratio(x_nu, x_de, KLIEP(), optlib=OptimLib)
 ```
 
 The third argument of the `densratio` function is a density ratio estimator.
@@ -60,6 +60,11 @@ the keyword argument `optlib` can be any of:
 * `ConvexLib` - [Convex.jl](https://github.com/JuliaOpt/Convex.jl) implementation
 * `JuMPLib`   - [JuMP.jl](https://github.com/JuliaOpt/JuMP.jl) implementation
 
+To find out the default implementation of an estimator, please use
+
+```julia
+default_optlib(KLIEP)
+```
 
 Some methods support the evaluation of the density ratio at all `x`, besides the
 denominator samples. In this case, the following line returns a function `r(x)`
