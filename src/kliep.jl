@@ -26,7 +26,7 @@ Kullback-Leibler importance estimation procedure (KLIEP).
   b::Int=100
 end
 
-_default_optlib(dre::Type{<:KLIEP}) = OptimLib
+default_optlib(dre::Type{<:KLIEP}) = OptimLib
 
 function _densratio(x_nu, x_de, dre::KLIEP,
                     optlib::Type{<:OptimizationLibrary})

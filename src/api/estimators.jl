@@ -27,7 +27,7 @@ the list below:
 See also [`densratiofunc`](@ref).
 """
 densratio(x_nu, x_de, dre::DensityRatioEstimator;
-          optlib=_default_optlib(typeof(dre))) =
+          optlib=default_optlib(typeof(dre))) =
   _densratio(x_nu, x_de, dre, optlib)
 
 """
@@ -45,8 +45,18 @@ Only some estimators define a ratio function that can
 be evaluated outside `x_de`.
 """
 densratiofunc(x_nu, x_de, dre::DensityRatioEstimator;
-              optlib=_default_optlib(typeof(dre))) =
+              optlib=default_optlib(typeof(dre))) =
   _densratiofunc(x_nu, x_de, dre, optlib)
+
+"""
+    default_optlib(dre)
+
+Return default optimization library for density ratio
+estimator `dre`. The function can also be called on the
+type `typeof(dre)`.
+"""
+default_optlib(dre::DensityRatioEstimator) =
+  default_optlib(typeof(dre))
 
 ###################################################
 ## functions to be implemented by new estimators ##
@@ -60,5 +70,5 @@ _densratiofunc(x_nu, x_de, dre::DensityRatioEstimator,
                optlib::Type{OptimizationLibrary}) =
   @error "not implemented"
 
-_default_optlib(dre::Type{DensityRatioEstimator}) =
+default_optlib(dre::Type{DensityRatioEstimator}) =
   @error "not implemented"
