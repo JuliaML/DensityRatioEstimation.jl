@@ -25,7 +25,7 @@ density ratio estimators. Therefore, this
 function may not work with some estimators.
 """
 fit(dre::Type{<:DensityRatioEstimator}, x_nu, x_de,
-    fitter::EstimatorFitter; optlib=_default_optlib(dre)) =
+    fitter::EstimatorFitter; optlib=default_optlib(dre)) =
   _fit(dre, x_nu, x_de, fitter, optlib)
 
 ################################################
