@@ -1,5 +1,5 @@
 @testset "KLIEP -- $optlib" for optlib in [OptimLib, ConvexLib]
-  for (i, pair, rtol_correctness) in zip(1:2, [pair₁, pair₂], (2e-1, 4e-1))
+  for (pair, rtol) in [(pair₁, 2e-1), (pair₂, 4e-1)]
     d_nu, d_de = pair
     Random.seed!(123)
     x_nu, x_de = rand(d_nu, 1_000), rand(d_de, 500)
@@ -16,7 +16,7 @@
     @test all(r̂ .≤ Inf)
 
     r = pdf.(d_nu, x_de) ./ pdf.(d_de, x_de)
-    @test r ≈ r̂ rtol=rtol_correctness
+    @test r ≈ r̂ rtol=rtol
 
     if visualtests
       gr(size=(800, 800))
