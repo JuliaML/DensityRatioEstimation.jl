@@ -8,9 +8,6 @@
     σ, b = 1.0, 100
     r̂ = densratio(x_nu, x_de, KLIEP(σ=σ, b=b), optlib=optlib)
 
-    # density ratios must be positive
-    @test all(r̂ .> 0)
-
     # simplex constraints
     @test abs(mean(r̂) - 1) ≤ 1e-2
     @test all(r̂ .≤ Inf)

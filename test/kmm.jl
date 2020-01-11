@@ -8,9 +8,6 @@
     σ, B, ϵ, λ = 1.5, Inf, 0.01, 0.001
     r̂ = densratio(x_nu, x_de, KMM(σ=σ, B=B, ϵ=ϵ,  λ=λ), optlib=optlib)
 
-    # density ratios must be positive
-    optlib == JuMPLib && @test all(r̂ .> 0)
-
     # simplex constraints
     @test abs(mean(r̂) - 1) ≤ 1e-2
     @test all(r̂ .≤ B)
