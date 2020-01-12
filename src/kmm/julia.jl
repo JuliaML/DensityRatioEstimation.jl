@@ -19,5 +19,5 @@ function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
   Kdenu = gaussian_gramian(x_de, x_nu, σ=σ)
 
   # closed-form solution (without constraints)
-  (n_de / n_nu) * (Kdede + λ*I) \ vec(sum(Kdenu, dims=2))
+  (n_de / n_nu) * ((Kdede + λ*I) \ vec(sum(Kdenu, dims=2)))
 end
