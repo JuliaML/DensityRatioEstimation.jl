@@ -1,5 +1,5 @@
 @testset "KLIEP -- $optlib" for optlib in [OptimLib, ConvexLib]
-  for (pair, rtol) in [(pair₁, 2e-1), (pair₂, 4e-1)]
+  for (i, pair, rtol) in [(1, pair₁, 2e-1), (2, pair₂, 4e-1)]
     d_nu, d_de = pair
     Random.seed!(123)
     x_nu, x_de = rand(d_nu, 1_000), rand(d_de, 500)
