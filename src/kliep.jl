@@ -10,7 +10,7 @@ Kullback-Leibler importance estimation procedure (KLIEP).
 ## Parameters
 
 * `σ` - Bandwidth of Gaussian kernel (default to `1.0`)
-* `b` - Number of radial basis functions (default to `100`)
+* `b` - Maximum number of radial basis functions (default to `100`)
 
 ## References
 
@@ -55,10 +55,8 @@ in kernel approximation of density ratio function.
 function _kliep_centers(x_nu, dre::KLIEP)
   b = dre.b
   n = length(x_nu)
-
-  @assert b ≤ n "more basis elements than numerator samples"
-
-  sample(1:n, b, replace=false)
+  s = min(n, b)
+  sample(1:n, s, replace=false)
 end
 
 """
