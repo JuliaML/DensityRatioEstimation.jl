@@ -9,15 +9,11 @@ function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
   # retrieve parameters
   @unpack σ, B, ϵ, λ = dre
 
-  # warn user that original convex problem formulation
-  # does not consider regularization parameter
-  iszero(λ) || @warn "λ parameter ignored when optlib=JuMPLib"
-
   # number of numerator and denominator samples
   m′, m = length(x_nu), length(x_de)
 
   # constants for objective and constraints
-  K = gaussian_gramian(x_de, x_de, σ=σ)
+  K = gaussian_gramian(x_de, x_de, σ=σ) + λ * I
   A = gaussian_gramian(x_de, x_nu, σ=σ)
   κ = (m / m′) * sum(A, dims=2)
 
