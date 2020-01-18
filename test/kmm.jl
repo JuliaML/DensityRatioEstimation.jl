@@ -1,5 +1,5 @@
 @testset "KMM -- $optlib" for optlib in [JuliaLib, JuMPLib]
-  for (i, pair, rtol) in [(1, pair₁, 2e-1), (2, pair₂, 4e-1)]
+  for (i, (pair, rtol)) in enumerate([(pair₁, 2e-1), (pair₂, 4e-1)])
     d_nu, d_de = pair
     Random.seed!(123)
     x_nu, x_de = rand(d_nu, 2_000), rand(d_de, 1_000)
