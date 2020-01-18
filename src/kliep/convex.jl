@@ -8,7 +8,7 @@ import .ECOS: ECOSSolver
 function _kliep_coeffs(x_nu, x_de, centers::AbstractVector{Int},
                        dre::KLIEP, optlib::Type{ConvexLib})
   # retrieve parameters
-  @unpack σ, b = dre
+  σ, b = dre.σ, length(centers)
 
   # number of numerator and denominator samples
   n_nu, n_de = length(x_nu), length(x_de)
