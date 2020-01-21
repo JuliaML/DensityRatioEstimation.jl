@@ -22,7 +22,8 @@
     x_nu, x_de = rand(d_nu, 100), rand(d_de, 200)
     @testset "$dre -- $optlib" for (dre, optlib) in [(KMM(),   JuMPLib),
                                                      (KLIEP(), OptimLib),
-                                                     (KLIEP(), ConvexLib)]
+                                                     (KLIEP(), ConvexLib),
+                                                     (LSIF(), JuMPLib)]
 
       r = densratio(x_nu, x_de, dre, optlib=optlib)
 

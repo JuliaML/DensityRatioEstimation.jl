@@ -31,7 +31,8 @@ pair₂ = MixtureModel([Normal(-2,1),Normal(2,2)], [0.2,0.8]), Normal(0,2)
 testfiles = [
   "basic.jl",
   "kmm.jl",
-  "kliep.jl"
+  "kliep.jl",
+  "lsif.jl"
 ]
 
 @testset "DensityRatioEstimation.jl" begin
