@@ -28,7 +28,7 @@ Importance Estimation
   λ::T=0.001
 end
 
-default_optlib(dre::Type{<:LSIF}) = JuMPLib
+default_optlib(dre::Type{<:LSIF}) = OptimLib
 
 function _densratio(x_nu, x_de, dre::LSIF,
                     optlib::Type{<:OptimizationLibrary})
