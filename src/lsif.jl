@@ -11,7 +11,7 @@ Least squares importance fitting.
 
 * `σ` - Bandwidth of Gaussian kernel (default to `1.0`)
 * `b` - Maximum number of radial basis functions (default to `100`)
-* `λ` - Regularization parameter (default to `0.0`)
+* `λ` - Regularization parameter (default to `0.001`)
 
 ## References
 
@@ -25,7 +25,7 @@ Importance Estimation
 @with_kw struct LSIF{T} <: DensityRatioEstimator
   σ::T=1.0
   b::Int=100
-  λ::T=0.0
+  λ::T=0.001
 end
 
 default_optlib(dre::Type{<:LSIF}) = JuMPLib
