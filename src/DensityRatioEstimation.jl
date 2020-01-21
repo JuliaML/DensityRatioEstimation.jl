@@ -46,6 +46,7 @@ function __init__()
   end
 
   # LSIF
+  @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("lsif/optim.jl")
   @require JuMP="4076af6c-e467-56ae-b986-b466b2749572" begin
     @require Ipopt="b6b21f68-93f8-5de0-b562-5493be1d77c9" include("lsif/jump.jl")
   end

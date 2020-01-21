@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------
 
 function _lsif_coeffs(x_nu, x_de, centers::AbstractVector{Int},
-                      dre::LSIF, optlib::Type{JuMPLib})
+                      dre::LSIF, optlib::Type{OptimLib})
   # retrieve parameters
   σ, λ, b = dre.σ, dre.λ, length(centers)
 
@@ -23,14 +23,27 @@ function _lsif_coeffs(x_nu, x_de, centers::AbstractVector{Int},
   end
   h = vec(mean(K_nu, dims=1))
 
-  model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
-  @variable(model, α[1:b])
-  @objective(model, Min, (1/2) * dot(α, H*α - 2h) + λ * sum(α))
-  @constraint(model, α .≥ 0)
+  # constants for inequality constraints
+  T = eltype(x_de[1])
+  lx = fill(zero(T), b)
+  ux = fill(Inf, b)
 
-  # solve the problem
-  optimize!(model)
+  # objective
+  f(α)       = (1/2) * dot(α, H*α - 2h) + λ * sum(α)
+  ∇f!(grad, α)  = (grad .= H*α .- h .+ λ)
+  ∇²f!(hess, α) = (hess .= H)
 
-  # density ratio
-  value.(α)
+  # initial guess
+  αₒ = fill(one(T), b)
+
+  # optimization problem
+  objective   = TwiceDifferentiable(f, ∇f!, ∇²f!, αₒ)
+  constraints = TwiceDifferentiableConstraints(lx, ux)
+  initguess   = αₒ
+
+  # solve problem with interior-point primal-dual Newton
+  solution = optimize(objective, constraints, initguess, IPNewton())
+
+  # optimal coefficients
+  solution.minimizer
 end
