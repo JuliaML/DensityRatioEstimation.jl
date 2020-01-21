@@ -12,7 +12,7 @@ Kernel Mean Matching (KMM).
 * `σ` - Bandwidth of Gaussian kernel (default to `1.0`)
 * `B` - Maximum discrepancy allowed (default to `Inf`)
 * `ϵ` - Tolerance for unit sum (default to `0.01`)
-* `λ` - Stablization of Gram matrix (default to `0.001`)
+* `λ` - Regularization parameter (default to `0.001`)
 
 ## References
 
