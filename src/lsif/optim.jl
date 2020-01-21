@@ -2,6 +2,8 @@
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
+using .Optim
+
 function _lsif_coeffs(x_nu, x_de, centers::AbstractVector{Int},
                       dre::LSIF, optlib::Type{OptimLib})
   # retrieve parameters
@@ -13,14 +15,15 @@ function _lsif_coeffs(x_nu, x_de, centers::AbstractVector{Int},
   # constants for objective and constraints
   K_nu = gaussian_gramian(x_nu, x_nu[centers], σ=σ)
   K_de = gaussian_gramian(x_de, x_nu[centers], σ=σ)
-  H = Matrix{eltype(K_de)}(undef, b, b)
+  Φ = Matrix{eltype(K_de)}(undef, b, b)
   for l′ in 1:b
     φ′ = view(K_de, :, l′)
-    for l in 1:b
+    for l in 1:l′
       φ = view(K_de, :, l)
-      H[l,l′] = mean(φ .* φ′)
+      Φ[l,l′] = mean(φ .* φ′)
     end
   end
+  H = Symmetric(Φ)
   h = vec(mean(K_nu, dims=1))
 
   # constants for inequality constraints
