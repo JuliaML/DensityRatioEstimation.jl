@@ -32,7 +32,7 @@ default_optlib(dre::Type{<:LSIF}) = OptimLib
 
 function _densratio(x_nu, x_de, dre::LSIF,
                     optlib::Type{<:OptimizationLibrary})
-  c = select_centers(x_nu, dre.b)
+  c = sample_centers(x_nu, dre.b)
   α = _lsif_coeffs(x_nu, x_de, c, dre, optlib)
   K = gaussian_gramian(x_de, x_nu[c], σ=dre.σ)
   K*α
@@ -40,7 +40,7 @@ end
 
 function _densratiofunc(x_nu, x_de, dre::LSIF,
                         optlib::Type{<:OptimizationLibrary})
-  c = select_centers(x_nu, dre.b)
+  c = sample_centers(x_nu, dre.b)
   α = _lsif_coeffs(x_nu, x_de, c, dre, optlib)
   function r(x)
     K = gaussian_gramian([x], x_nu[c], σ=dre.σ)

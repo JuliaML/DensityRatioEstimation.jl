@@ -20,14 +20,13 @@ function gaussian_gramian(xs, ys; σ=1)
 end
 
 """
-    select_centers(x_nu, nmax)
+    sample_centers(x_nu, nmax)
 
 Return the indices of `x_nu` used as the kernel centers
 in kernel approximation of density ratio function. The
 parameter `nmax` is the maximum number of indices to select.
 """
-function select_centers(x_nu, nmax::Int)
+function sample_centers(x_nu, nmax::Int)
   n = length(x_nu)
-  s = min(n, nmax)
-  sample(1:n, s, replace=false)
+  sample(1:n, min(n, nmax), replace=false)
 end
