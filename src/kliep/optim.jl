@@ -4,24 +4,22 @@
 
 using .Optim
 
-function _kliep_coeffs(x_nu, x_de, centers::AbstractVector{Int},
-                       dre::KLIEP, optlib::Type{OptimLib})
+function _kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{OptimLib})
   # retrieve parameters
-  σ, b = dre.σ, length(centers)
+  σ, b = dre.σ, size(K_de, 2)
 
   # number of numerator and denominator samples
-  n_nu, n_de = length(x_nu), length(x_de)
+  n_nu, n_de = size(K_nu, 1), size(K_de, 1)
 
-  # constants for objective
-  K = gaussian_gramian(x_nu, x_nu[centers], σ=σ)
+  # constants for objective function
+  K = K_nu
 
   # constants for equality constraints
-  P = gaussian_gramian(x_de, x_nu[centers], σ=σ)
-  A = sum(P, dims=1)
+  A = sum(K_de, dims=1)
   lc = uc = [n_de]
 
   # constants for inequality constraints
-  T = eltype(x_de[1])
+  T  = eltype(K_de)
   lx = fill(zero(T), b)
   ux = fill(Inf, b)
 

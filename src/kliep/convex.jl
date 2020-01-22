@@ -5,23 +5,21 @@
 import .Convex
 import .ECOS: ECOSSolver
 
-function _kliep_coeffs(x_nu, x_de, centers::AbstractVector{Int},
-                       dre::KLIEP, optlib::Type{ConvexLib})
+function _kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{ConvexLib})
   # retrieve parameters
-  σ, b = dre.σ, length(centers)
+  σ, b = dre.σ, size(K_de, 2)
 
   # number of numerator and denominator samples
-  n_nu, n_de = length(x_nu), length(x_de)
+  n_nu, n_de = size(K_nu, 1), size(K_de, 1)
 
   # constants for objective and constraints
-  K = gaussian_gramian(x_nu, x_nu[centers], σ=σ)
-  P = gaussian_gramian(x_de, x_nu[centers], σ=σ)
-  p = sum(P, dims=1)
+  K = K_nu
+  k = sum(K_de, dims=1)
 
   # objective function and constraints
   α = Convex.Variable(b); w = K*α
   objective   = sum(log(w[i]) for i in 1:n_nu)
-  constraints = [α ≥ 0, dot(α,p) == n_de]
+  constraints = [α ≥ 0, dot(α,k) == n_de]
 
   # optimization problem
   problem = Convex.maximize(objective, constraints)

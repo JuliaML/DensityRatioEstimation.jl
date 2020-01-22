@@ -32,40 +32,35 @@ available_optlib(dre::Type{<:KLIEP}) = [OptimLib, ConvexLib]
 
 function _densratio(x_nu, x_de, dre::KLIEP,
                     optlib::Type{<:OptimizationLibrary})
-  c = _kliep_centers(x_nu, dre)
-  α = _kliep_coeffs(x_nu, x_de, c, dre, optlib)
-  K = gaussian_gramian(x_de, x_nu[c], σ=dre.σ)
-  K*α
+  K_nu, K_de, x_ba = _kliep_consts(x_nu, x_de, dre)
+  α = _kliep_coeffs(K_nu, K_de, dre, optlib)
+  K_de*α
 end
 
 function _densratiofunc(x_nu, x_de, dre::KLIEP,
                         optlib::Type{<:OptimizationLibrary})
-  c = _kliep_centers(x_nu, dre)
-  α = _kliep_coeffs(x_nu, x_de, c, dre, optlib)
+  K_nu, K_de, x_ba = _kliep_consts(x_nu, x_de, dre)
+  α = _kliep_coeffs(K_nu, K_de, dre, optlib)
   function r(x)
-    K = gaussian_gramian([x], x_nu[c], σ=dre.σ)
+    K = gaussian_gramian([x], x_ba, σ=dre.σ)
     dot(K, α)
   end
 end
 
-"""
-    _kliep_centers(x_nu, dre)
+# constants involved in KLIEP optimization
+function _kliep_consts(x_nu, x_de, dre)
+  x_ba = sample(x_nu, min(length(x_nu), dre.b), replace=false)
+  K_nu = gaussian_gramian(x_nu, x_ba, σ=dre.σ)
+  K_de = gaussian_gramian(x_de, x_ba, σ=dre.σ)
 
-Return the indices of `x_nu` used as the kernel centers
-in kernel approximation of density ratio function.
-"""
-function _kliep_centers(x_nu, dre::KLIEP)
-  b = dre.b
-  n = length(x_nu)
-  s = min(n, b)
-  sample(1:n, s, replace=false)
+  K_nu, K_de, x_ba
 end
 
 """
-    _kliep_coeffs(x_nu, x_de, basis, dre, optlib)
+    _kliep_coeffs(K_nu, K_de, dre, optlib)
 
 Return the coefficients of KLIEP basis expansion.
 """
-_kliep_coeffs(x_nu, x_de, centers::AbstractVector{Int}, dre::KLIEP,
+_kliep_coeffs(K_nu, K_de, dre::KLIEP,
              optlib::Type{<:OptimizationLibrary}) =
   @error "not implemented"
