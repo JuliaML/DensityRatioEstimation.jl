@@ -12,6 +12,7 @@ Kernel Mean Matching (KMM).
 * `σ` - Bandwidth of Gaussian kernel (default to `1.0`)
 * `B` - Maximum discrepancy allowed (default to `Inf`)
 * `ϵ` - Tolerance for unit sum (default to `0.01`)
+* `λ` - Regularization parameter (default to `0.001`)
 
 ## References
 
@@ -21,12 +22,13 @@ Kernel Mean Matching (KMM).
 ### Author
 
 * Júlio Hoffimann (julio.hoffimann@gmail.com)
+* Kai Xu (xukai921110@gmail.com)
 """
 @with_kw struct KMM{T} <: DensityRatioEstimator
   σ::T=1.0
   B::T=Inf
   ϵ::T=0.01
-  λ::T=0.0
+  λ::T=0.001
 end
 
 default_optlib(dre::Type{<:KMM}) = JuMPLib
