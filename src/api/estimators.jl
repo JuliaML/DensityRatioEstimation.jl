@@ -58,6 +58,15 @@ type `typeof(dre)`.
 default_optlib(dre::DensityRatioEstimator) =
   default_optlib(typeof(dre))
 
+"""
+    available_optlib(dre)
+
+Return list of implementations available via different
+optimization frameworks.
+"""
+available_optlib(dre::DensityRatioEstimator) =
+  available_optlib(typeof(dre))
+
 ###################################################
 ## functions to be implemented by new estimators ##
 ###################################################
@@ -71,4 +80,7 @@ _densratiofunc(x_nu, x_de, dre::DensityRatioEstimator,
   @error "not implemented"
 
 default_optlib(dre::Type{DensityRatioEstimator}) =
+  @error "not implemented"
+
+available_optlib(dre::Type{DensityRatioEstimator}) =
   @error "not implemented"

@@ -30,6 +30,8 @@ end
 
 default_optlib(dre::Type{<:LSIF}) = OptimLib
 
+available_optlib(dre::Type{<:LSIF}) = [OptimLib, JuMPLib]
+
 function _densratio(x_nu, x_de, dre::LSIF,
                     optlib::Type{<:OptimizationLibrary})
   c = sample_centers(x_nu, dre.b)
