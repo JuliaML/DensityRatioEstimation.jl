@@ -23,6 +23,7 @@ include("utils.jl")
 # available estimators
 include("kmm.jl")
 include("kliep.jl")
+include("lsif.jl")
 
 # available estimator fitters
 include("lcv.jl")
@@ -43,6 +44,12 @@ function __init__()
   @require Convex="f65535da-76fb-5f13-bab9-19810c17039a" begin
     @require ECOS="e2685f51-7e38-5353-a97d-a921fd2c8199" include("kliep/convex.jl")
   end
+
+  # LSIF
+  @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("lsif/optim.jl")
+  @require JuMP="4076af6c-e467-56ae-b986-b466b2749572" begin
+    @require Ipopt="b6b21f68-93f8-5de0-b562-5493be1d77c9" include("lsif/jump.jl")
+  end
 end
 
 export
@@ -55,7 +62,7 @@ export
 
   # estimators
   DensityRatioEstimator,
-  KMM, KLIEP,
+  KMM, KLIEP, LSIF,
   default_optlib,
   densratiofunc,
   densratio,

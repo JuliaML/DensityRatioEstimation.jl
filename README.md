@@ -38,6 +38,7 @@ Currently, this package implements the following estimators:
 | --------- | ---------- |
 | KMM       | [Huang et al. 2006](https://papers.nips.cc/paper/3075-correcting-sample-selection-bias-by-unlabeled-data.pdf) |
 | KLIEP     | [Sugiyama et al. 2008](https://link.springer.com/article/10.1007/s10463-008-0197-x) |
+| LSIF      | [Kanamori et al. 2009](http://www.jmlr.org/papers/volume10/kanamori09a/kanamori09a.pdf) |
 
 The fourth argument `optlib` specifies the optimization package used to implement
 the estimator. Some estimators are implemented with different optimization packages
