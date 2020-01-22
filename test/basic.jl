@@ -23,7 +23,8 @@
     @testset "$dre -- $optlib" for (dre, optlib) in [(KMM(),   JuMPLib),
                                                      (KLIEP(), OptimLib),
                                                      (KLIEP(), ConvexLib),
-                                                     (LSIF(), JuMPLib)]
+                                                     (LSIF(),  OptimLib),
+                                                     (LSIF(),  JuMPLib)]
 
       r = densratio(x_nu, x_de, dre, optlib=optlib)
 
