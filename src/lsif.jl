@@ -34,20 +34,39 @@ available_optlib(dre::Type{<:LSIF}) = [OptimLib, JuMPLib]
 
 function _densratio(x_nu, x_de, dre::LSIF,
                     optlib::Type{<:OptimizationLibrary})
-  c = sample_centers(x_nu, dre.b)
-  α = _lsif_coeffs(x_nu, x_de, c, dre, optlib)
-  K = gaussian_gramian(x_de, x_nu[c], σ=dre.σ)
-  K*α
+  K_de, H, h, x_ba = _lsif_consts(x_nu, x_de, dre)
+  α = _lsif_coeffs(H, h, dre, optlib)
+  K_de*α
 end
 
 function _densratiofunc(x_nu, x_de, dre::LSIF,
                         optlib::Type{<:OptimizationLibrary})
-  c = sample_centers(x_nu, dre.b)
-  α = _lsif_coeffs(x_nu, x_de, c, dre, optlib)
+  K_de, H, h, x_ba = _lsif_consts(x_nu, x_de, dre)
+  α = _lsif_coeffs(H, h, dre, optlib)
   function r(x)
-    K = gaussian_gramian([x], x_nu[c], σ=dre.σ)
+    K = gaussian_gramian([x], x_ba, σ=dre.σ)
     dot(K, α)
   end
+end
+
+function _lsif_consts(x_nu, x_de, dre)
+  x_ba = sample(x_nu, min(length(x_nu), dre.b), replace=false)
+  K_nu = gaussian_gramian(x_nu, x_ba, σ=dre.σ)
+  K_de = gaussian_gramian(x_de, x_ba, σ=dre.σ)
+
+  b = length(x_ba)
+  Φ = Matrix{eltype(K_de)}(undef, b, b)
+  for l′ in 1:b
+    φ′ = view(K_de, :, l′)
+    for l in 1:l′
+      φ = view(K_de, :, l)
+      Φ[l,l′] = mean(φ .* φ′)
+    end
+  end
+  H = Symmetric(Φ)
+  h = vec(mean(K_nu, dims=1))
+
+  K_de, H, h, x_ba
 end
 
 """
