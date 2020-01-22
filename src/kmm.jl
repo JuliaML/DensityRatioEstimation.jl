@@ -32,3 +32,5 @@ Kernel Mean Matching (KMM).
 end
 
 default_optlib(dre::Type{<:KMM}) = JuMPLib
+
+available_optlib(dre::Type{<:KMM}) = [JuliaLib, JuMPLib]

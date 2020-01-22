@@ -28,6 +28,8 @@ end
 
 default_optlib(dre::Type{<:KLIEP}) = OptimLib
 
+available_optlib(dre::Type{<:KLIEP}) = [OptimLib, ConvexLib]
+
 function _densratio(x_nu, x_de, dre::KLIEP,
                     optlib::Type{<:OptimizationLibrary})
   c = _kliep_centers(x_nu, dre)
