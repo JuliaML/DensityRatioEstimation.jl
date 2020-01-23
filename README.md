@@ -1,6 +1,15 @@
-# DensityRatioEstimation.jl
-
-[![Build Status](https://travis-ci.com/xukai92/DensityRatioEstimation.jl.svg?branch=master)](https://travis-ci.com/xukai92/DensityRatioEstimation.jl) [![Coverage Status](https://coveralls.io/repos/github/xukai92/DensityRatioEstimation.jl/badge.svg?branch=master)](https://coveralls.io/github/xukai92/DensityRatioEstimation.jl?branch=master)
+<p align="center">
+  <img src="docs/DensRatio.png" height="200"><br>
+  <a href="https://travis-ci.org/JuliaEarth/DensityRatioEstimation.jl">
+    <img src="https://travis-ci.org/JuliaEarth/DensityRatioEstimation.jl.svg?branch=master">
+  </a>
+  <a href="https://codecov.io/gh/JuliaEarth/DensityRatioEstimation.jl">
+    <img src="https://codecov.io/gh/JuliaEarth/DensityRatioEstimation.jl/branch/master/graph/badge.svg">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/license-ISC-blue.svg">
+  </a>
+</p>
 
 Given samples `x_nu` and `x_de` from distributions `p_nu` and `p_de`, it is very
 useful to estimate the density ratio `r(x) = p_nu(x) / p_de(x)` for all valid `x`.
