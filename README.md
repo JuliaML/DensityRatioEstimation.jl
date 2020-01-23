@@ -61,10 +61,16 @@ the keyword argument `optlib` can be any of:
 * `ConvexLib` - [Convex.jl](https://github.com/JuliaOpt/Convex.jl) implementation
 * `JuMPLib`   - [JuMP.jl](https://github.com/JuliaOpt/JuMP.jl) implementation
 
-To find out the default implementation of an estimator, please use
+To find out the default implementation for an estimator, please use
 
 ```julia
 default_optlib(KLIEP)
+```
+
+and to find out the available implementations, please use
+
+```julia
+available_optlib(KLIEP)
 ```
 
 Some methods support the evaluation of the density ratio at all `x`, besides the
