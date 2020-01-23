@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------
-# Licensed under the MIT License. See LICENSE in the project root.
+# Licensed under the ISC License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
 function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
