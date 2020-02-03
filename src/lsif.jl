@@ -10,7 +10,7 @@ Least squares importance fitting.
 ## Parameters
 
 * `σ` - Bandwidth of Gaussian kernel (default to `1.0`)
-* `b` - Maximum number of radial basis functions (default to `100`)
+* `b` - Maximum number of radial basis functions (default to `20`)
 * `λ` - Regularization parameter (default to `0.001`)
 
 ## References
@@ -24,7 +24,7 @@ Importance Estimation
 """
 @with_kw struct LSIF{T} <: DensityRatioEstimator
   σ::T=1.0
-  b::Int=100
+  b::Int=20
   λ::T=0.001
 end
 
@@ -74,6 +74,5 @@ end
 
 Return the coefficients of LSIF basis expansion.
 """
-_lsif_coeffs(x_nu, x_de, centers::AbstractVector{Int}, dre::LSIF,
-             optlib::Type{<:OptimizationLibrary}) =
+_lsif_coeffs(H, h, dre::LSIF, optlib::Type{<:OptimizationLibrary}) =
   @error "not implemented"

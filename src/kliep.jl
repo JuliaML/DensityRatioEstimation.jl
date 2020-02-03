@@ -10,7 +10,7 @@ Kullback-Leibler importance estimation procedure (KLIEP).
 ## Parameters
 
 * `σ` - Bandwidth of Gaussian kernel (default to `1.0`)
-* `b` - Maximum number of radial basis functions (default to `100`)
+* `b` - Maximum number of radial basis functions (default to `20`)
 
 ## References
 
@@ -23,7 +23,7 @@ Kullback-Leibler importance estimation procedure (KLIEP).
 """
 @with_kw struct KLIEP{T} <: DensityRatioEstimator
   σ::T=1.0
-  b::Int=100
+  b::Int=20
 end
 
 default_optlib(dre::Type{<:KLIEP}) = OptimLib
@@ -62,5 +62,5 @@ end
 Return the coefficients of KLIEP basis expansion.
 """
 _kliep_coeffs(K_nu, K_de, dre::KLIEP,
-             optlib::Type{<:OptimizationLibrary}) =
+              optlib::Type{<:OptimizationLibrary}) =
   @error "not implemented"
