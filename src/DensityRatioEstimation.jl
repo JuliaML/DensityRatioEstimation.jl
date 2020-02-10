@@ -50,6 +50,9 @@ function __init__()
   @require JuMP="4076af6c-e467-56ae-b986-b466b2749572" begin
     @require Ipopt="b6b21f68-93f8-5de0-b562-5493be1d77c9" include("lsif/jump.jl")
   end
+
+  # Zygote
+  @require Zygote="e88e6eb3-aa80-5325-afca-941959d7151f" include("lib/zygote.jl")
 end
 
 export

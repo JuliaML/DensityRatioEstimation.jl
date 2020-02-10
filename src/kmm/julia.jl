@@ -2,14 +2,20 @@
 # Licensed under the ISC License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-function _densratio(x_nu, x_de, dre::KMM{T}, optlib::Type{JuliaLib}) where {T}
-  # retrieve parameters
-  @unpack σ, B, ϵ, λ = dre
-
+# NOTE: this function is for Zygote compatbility; see lib/zygote.jl
+function warn_kmm_julialib(B, ϵ)
   # warn user that closed-form solution does
   # not consider probability simplex constraints
   isinf(B) || @warn "B parameter ignored when optlib=JuliaLib"
   iszero(ϵ) || @warn "ϵ parameter ignored when optlib=JuliaLib"
+end
+
+function _densratio(x_nu, x_de, dre::KMM{T}, optlib::Type{JuliaLib}) where {T}
+  # retrieve parameters
+  @unpack σ, B, ϵ, λ = dre
+
+  # warn ignored parameters
+  warn_kmm_julialib(B, ϵ)
 
   # number of numerator and denominator samples
   n_nu, n_de = length(x_nu), length(x_de)
