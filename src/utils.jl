@@ -15,5 +15,6 @@ euclidsq(x, y) = sum((x[i] - y[i])^2 for i in eachindex(x))
 Gramian matrix for samples `xs` and `ys` using a Gaussian kernel
 kernel with bandwidth `σ`.
 """
+gaussian_gramian(xs; kwargs...) = gaussian_gramian(xs, xs; kwargs...)
 gaussian_gramian(xs, ys; σ=1) =
   [exp(-euclidsq(x, y) / 2σ^2) for x in xs, y in ys]

@@ -2,7 +2,7 @@
 # Licensed under the ISC License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
+function _densratio(x_nu, x_de, dre::KMM{T}, optlib::Type{JuliaLib}) where {T}
   # retrieve parameters
   @unpack σ, B, ϵ, λ = dre
 
@@ -15,9 +15,9 @@ function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
   n_nu, n_de = length(x_nu), length(x_de)
 
   # Gramian matrices for numerator and denominator
-  Kdede = gaussian_gramian(x_de, x_de, σ=σ)
-  Kdenu = gaussian_gramian(x_de, x_nu, σ=σ)
+  Kdede = gaussian_gramian(x_de; σ=σ)
+  Kdenu = gaussian_gramian(x_de, x_nu; σ=σ)
 
   # closed-form solution (without constraints)
-  (n_de / n_nu) * ((Kdede + λ*I) \ vec(sum(Kdenu, dims=2)))
+  T(n_de / n_nu) * ((Kdede + λ*I) \ vec(sum(Kdenu, dims=2)))
 end

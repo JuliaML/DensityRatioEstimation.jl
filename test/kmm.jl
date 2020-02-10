@@ -17,6 +17,9 @@
     r = pdf.(d_nu, x_de) ./ pdf.(d_de, x_de)
     @test r ≈ r̂ rtol=rtol
 
+    # type consistency
+    @test eltype(r) == typeof(σ)
+
     if visualtests
       gr(size=(800, 800))
       @plottest plot_d_nu(pair, x_de, r̂) joinpath(datadir, "KMM-$optlib-$i.png") !istravis
