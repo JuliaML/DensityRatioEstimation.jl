@@ -41,4 +41,4 @@ function gaussian_gramian(X::T, Y::T; σ=1) where {T<:AbstractMatrix}
     gaussian_gramian_by_euclidsq(euclidsq(X, Y), σ)
 end
 
-gaussian_gramian_by_euclidsq(dsq, σ) = exp.(-dsq ./ 2σ^2)
+gaussian_gramian_by_euclidsq(esq, σ) = exp.(-esq ./ 2σ^2)
