@@ -6,7 +6,7 @@
 
     # estimated density ratio
     D = [sqrt(DensityRatioEstimation.euclidsq(x, y)) for x in x_nu, y in x_de]
-    σ, B, ϵ, λ = Distributions.mode(D), Inf, 0.001, 0.01
+    σ, B, ϵ, λ = median(D), Inf, 0.001, 0.01
     r̂ = densratio(x_nu, x_de, KMM(σ=σ, B=B, ϵ=ϵ,  λ=λ), optlib=optlib)
 
     # simplex constraints
