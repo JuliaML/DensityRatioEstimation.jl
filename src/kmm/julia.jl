@@ -10,7 +10,7 @@ function warn_kmm_julialib(B, ϵ)
   iszero(ϵ) || @warn "ϵ parameter ignored when optlib=JuliaLib"
 end
 
-function _densratio(x_nu, x_de, dre::KMM{T}, optlib::Type{JuliaLib}) where {T}
+function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
   # retrieve parameters
   @unpack σ, B, ϵ, λ = dre
 
