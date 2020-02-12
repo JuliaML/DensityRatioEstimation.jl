@@ -51,8 +51,9 @@ function __init__()
     @require Ipopt="b6b21f68-93f8-5de0-b562-5493be1d77c9" include("lsif/jump.jl")
   end
 
-  # Zygote
+  # AD and GPU libs
   @require Zygote="e88e6eb3-aa80-5325-afca-941959d7151f" include("lib/zygote.jl")
+  @require CuArrays="3a865a2d-5b23-5a0f-bc46-62713ec82fae" include("lib/cuarrays.jl")
 end
 
 export
