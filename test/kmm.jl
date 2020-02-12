@@ -21,9 +21,11 @@
     # type consistency
     @test eltype(r) == typeof(σ)
 
-    # iterator and matrix version consistency
-    r̂_mat = densratio(reshape(x_nu, 1, :), reshape(x_de, 1, :), kmm; optlib=optlib)
-    @test r̂ == r̂_mat
+    # iterator and matrix version consistency for JuliaLib
+    if optlib == JuliaLib
+      r̂_mat = densratio(reshape(x_nu, 1, :), reshape(x_de, 1, :), kmm; optlib=optlib)
+      @test r̂ == r̂_mat
+    end
 
     if visualtests
       gr(size=(800, 800))
