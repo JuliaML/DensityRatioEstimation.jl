@@ -7,7 +7,8 @@
     # estimated density ratio
     D = [sqrt(DensityRatioEstimation.euclidsq(x, y)) for x in x_nu, y in x_de]
     σ, B, ϵ, λ = median(D), Inf, 0.001, 0.01
-    r̂ = densratio(x_nu, x_de, KMM(σ=σ, B=B, ϵ=ϵ,  λ=λ), optlib=optlib)
+    kmm = KMM(σ=σ, B=B, ϵ=ϵ,  λ=λ)
+    r̂ = densratio(x_nu, x_de, kmm; optlib=optlib)
 
     # simplex constraints
     @test abs(mean(r̂) - 1) ≤ 1e-2
@@ -19,6 +20,10 @@
 
     # type consistency
     @test eltype(r) == typeof(σ)
+
+    # iterator and matrix version consistency
+    r̂_mat = densratio(rehsape(x_nu, 1, :), rehsape(x_de, 1, :), kmm; optlib=optlib)
+    @test r̂ == r̂_mat
 
     if visualtests
       gr(size=(800, 800))
