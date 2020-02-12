@@ -22,7 +22,7 @@
     @test eltype(r) == typeof(σ)
 
     # iterator and matrix version consistency
-    r̂_mat = densratio(rehsape(x_nu, 1, :), rehsape(x_de, 1, :), kmm; optlib=optlib)
+    r̂_mat = densratio(reshape(x_nu, 1, :), reshape(x_de, 1, :), kmm; optlib=optlib)
     @test r̂ == r̂_mat
 
     if visualtests
