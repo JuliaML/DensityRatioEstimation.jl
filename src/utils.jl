@@ -11,19 +11,19 @@ euclidsq(x, y) = sum((x[i] - y[i])^2 for i in eachindex(x))
 
 # Support matrix data in a GPU and AD compatible way
 
-function euclidsq(x::T) where {T<:AbstractMatrix}
-    n = size(x, 2)
-    xixj = transpose(x) * x
-    xsq = sum(x .^ 2; dims=1)
+function euclidsq(X::T) where {T<:AbstractMatrix}
+    n = size(X, 2)
+    xixj = transpose(X) * X
+    xsq = sum(X .^ 2; dims=1)
     transpose(xsq) .+ xsq - 2xixj
 end
 
-function euclidsq(x::T, y::T) where {T<:AbstractMatrix}
-    nx = size(x, 2)
-    ny = size(y, 2)
-    xiyj = transpose(x) * y
-    xsq = sum(x .^ 2; dims=1)
-    ysq = sum(y .^ 2; dims=1)
+function euclidsq(X::T, Y::T) where {T<:AbstractMatrix}
+    nx = size(X, 2)
+    ny = size(Y, 2)
+    xiyj = transpose(X) * Y
+    xsq = sum(X .^ 2; dims=1)
+    ysq = sum(Y .^ 2; dims=1)
     transpose(xsq) .+ ysq - 2xiyj
 end
 

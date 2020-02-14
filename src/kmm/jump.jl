@@ -5,9 +5,12 @@
 using .JuMP
 using .Ipopt
 
-function _kmm_ratios(K, κ, dre::T, optlib::Type{JuMPLib}) where {T<:AbstractFloat}
+function _kmm_ratios(K, κ, dre, optlib::Type{JuMPLib})
   # retrieve parameters
   @unpack B, ϵ = dre
+
+  # number of denominator
+  m = length(κ)
 
   # optimization problem
   model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
