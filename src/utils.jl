@@ -42,3 +42,16 @@ function gaussian_gramian(X::T, Y::T; σ=1) where {T<:AbstractMatrix}
 end
 
 gaussian_gramian_by_euclidsq(esq, σ) = exp.(-esq ./ 2σ^2)
+
+"""
+    safe_diagm(mat, a)
+
+Generate a squared matrix whose diagonal is `a` that is 
+compatible to perform addition on `mat`. It hebaves 
+differently based on `mat` is on CPU or GPU.
+
+It is compatible with
+- CuArrays.jl (see lib/cuarrays.jl)
+- Zygote.jl (see lib/zygote.jl)
+"""
+safe_diagm(mat, a) = a * I
