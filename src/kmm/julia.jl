@@ -10,28 +10,12 @@ function warn_kmm_julialib(B, ϵ)
   iszero(ϵ) || @warn "ϵ parameter ignored when optlib=JuliaLib"
 end
 
-function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
+function _kmm_ratios(K, κ, dre::T, optlib::Type{JuliaLib}) where {T<:AbstractFloat}
   # retrieve parameters
-  @unpack σ, B, ϵ, λ = dre
+  @unpack B, ϵ = dre
 
-  # warn ignored parameters
-  warn_kmm_julialib(B, ϵ)
+  warn_kmm_julialib(B, ϵ) # warn ignored parameters
 
-  # Gramian matrices for numerator and denominator
-  Kdede = gaussian_gramian(x_de; σ=σ)
-  Kdenu = gaussian_gramian(x_de, x_nu; σ=σ)
-
-  # closed-form solution (without constraints)
-  _densratio_kmm(Kdede, Kdenu, dre.λ)
+  # density ratio via solve
+  K \ vec(κ)
 end
-
-# Interface to deal with an array of σs for external functions
-function _densratio_kmm(Kdede, Kdenu, λ::T) where {T<:AbstractFloat}
-  n_de, n_nu = size(Kdenu)
-  T(n_de / n_nu) * ((Kdede + safe_diagm(Kdede, λ)) \ vec(sum(Kdenu, dims=2)))
-end
-
-# Interface to deal with 
-# - CuArrays.jl: slow scalar operations; see lib/cuarrays.jl
-# - Zygote.jl: creating a new CuArray is unsupport during pullback; see lib/zygote.jl
-safe_diagm(Kdede, λ) = λ * I

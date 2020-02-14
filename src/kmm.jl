@@ -34,3 +34,25 @@ end
 default_optlib(dre::Type{<:KMM}) = JuMPLib
 
 available_optlib(dre::Type{<:KMM}) = [JuliaLib, JuMPLib]
+
+function _kmm_consts(x_nu, x_de, dre::KMM{T}) where {T<:AbstractFloat}
+  @unpack σ, λ = dre
+
+  # Gramian matrices for numerator and denominator
+  Kdede = gaussian_gramian(x_de; σ=σ)
+  if !iszero(λ)
+    Kdede += safe_diagm(Kdede, λ)
+  end
+  Kdenu = gaussian_gramian(x_de, x_nu; σ=σ)
+
+  # number of denominator and numerator samples
+  n_de, n_nu = size(Kdenu)
+
+  Kdede, T(n_de / n_nu) * sum(Kdenu, dims=2)
+end
+
+function _densratio(x_nu, x_de, dre::KMM, 
+                    optlib::Type{<:OptimizationLibrary})
+  K, κ = _kmm_consts(x_nu, x_de, dre)
+  _kmm_ratios(K, κ, dre, optlib)
+end
