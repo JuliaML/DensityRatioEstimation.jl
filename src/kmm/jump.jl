@@ -5,17 +5,12 @@
 using .JuMP
 using .Ipopt
 
-function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuMPLib})
+function _kmm_ratios(K, κ, dre::KMM, optlib::Type{JuMPLib})
   # retrieve parameters
-  @unpack σ, B, ϵ, λ = dre
+  @unpack B, ϵ = dre
 
-  # number of numerator and denominator samples
-  m′, m = length(x_nu), length(x_de)
-
-  # constants for objective and constraints
-  K = gaussian_gramian(x_de, x_de, σ=σ) + λ * I
-  A = gaussian_gramian(x_de, x_nu, σ=σ)
-  κ = (m / m′) * sum(A, dims=2)
+  # number of denominator samples
+  m = length(κ)
 
   # optimization problem
   model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))

@@ -2,22 +2,20 @@
 # Licensed under the ISC License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-function _densratio(x_nu, x_de, dre::KMM, optlib::Type{JuliaLib})
-  # retrieve parameters
-  @unpack σ, B, ϵ, λ = dre
-
+# NOTE: this function is a hack for Zygote.jl compatbility; see lib/zygote.jl
+function warn_kmm_julialib(B, ϵ)
   # warn user that closed-form solution does
   # not consider probability simplex constraints
   isinf(B) || @warn "B parameter ignored when optlib=JuliaLib"
   iszero(ϵ) || @warn "ϵ parameter ignored when optlib=JuliaLib"
+end
 
-  # number of numerator and denominator samples
-  n_nu, n_de = length(x_nu), length(x_de)
+function _kmm_ratios(K, κ, dre::KMM, optlib::Type{JuliaLib})
+  # retrieve parameters
+  @unpack B, ϵ = dre
 
-  # Gramian matrices for numerator and denominator
-  Kdede = gaussian_gramian(x_de, x_de, σ=σ)
-  Kdenu = gaussian_gramian(x_de, x_nu, σ=σ)
+  warn_kmm_julialib(B, ϵ) # warn ignored parameters
 
-  # closed-form solution (without constraints)
-  (n_de / n_nu) * ((Kdede + λ*I) \ vec(sum(Kdenu, dims=2)))
+  # density ratio via solve
+  K \ vec(κ)
 end
