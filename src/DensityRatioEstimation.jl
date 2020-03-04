@@ -52,8 +52,8 @@ function __init__()
   end
 
   # AD and GPU libs
-  @require Zygote="e88e6eb3-aa80-5325-afca-941959d7151f" include("lib/zygote.jl")
-  @require CuArrays="3a865a2d-5b23-5a0f-bc46-62713ec82fae" include("lib/cuarrays.jl")
+  @require Zygote="e88e6eb3-aa80-5325-afca-941959d7151f" include("utils/zygote.jl")
+  @require CuArrays="3a865a2d-5b23-5a0f-bc46-62713ec82fae" include("utils/cuarrays.jl")
 end
 
 export
