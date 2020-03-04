@@ -13,7 +13,7 @@ function _kmm_ratios(K, κ, dre::KMM, optlib::Type{JuMPLib})
   m = length(κ)
 
   # optimization problem
-  model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
+  model = Model(optimizer_with_attributes(Ipopt.Optimizer, "print_level" => 0, "sb" => "yes"))
   @variable(model, β[1:m])
   @objective(model, Min, (1/2) * dot(β, K*β - 2κ))
   @constraint(model, 0 .≤ β)

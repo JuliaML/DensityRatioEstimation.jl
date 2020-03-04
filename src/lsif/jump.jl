@@ -9,7 +9,7 @@ function _lsif_coeffs(H, h, dre::LSIF, optlib::Type{JuMPLib})
   # retrieve parameters
   λ, b = dre.λ, length(h)
 
-  model = Model(with_optimizer(Ipopt.Optimizer, print_level=0, sb="yes"))
+  model = Model(optimizer_with_attributes(Ipopt.Optimizer, "print_level" => 0, "sb" => "yes"))
   @variable(model, α[1:b])
   @objective(model, Min, (1/2) * dot(α, H*α - 2h) + λ * sum(α))
   @constraint(model, α .≥ 0)
