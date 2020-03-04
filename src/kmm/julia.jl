@@ -10,7 +10,7 @@ function warn_kmm_julialib(B, ϵ)
   iszero(ϵ) || @warn "ϵ parameter ignored when optlib=JuliaLib"
 end
 
-function _kmm_ratios(K, κ, dre, optlib::Type{JuliaLib})
+function _kmm_ratios(K, κ, dre::KMM, optlib::Type{JuliaLib})
   # retrieve parameters
   @unpack B, ϵ = dre
 

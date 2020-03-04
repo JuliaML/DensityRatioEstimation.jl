@@ -5,11 +5,11 @@
 using .JuMP
 using .Ipopt
 
-function _kmm_ratios(K, κ, dre, optlib::Type{JuMPLib})
+function _kmm_ratios(K, κ, dre::KMM, optlib::Type{JuMPLib})
   # retrieve parameters
   @unpack B, ϵ = dre
 
-  # number of denominator
+  # number of denominator samples
   m = length(κ)
 
   # optimization problem
