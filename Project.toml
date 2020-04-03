@@ -1,7 +1,7 @@
 name = "DensityRatioEstimation"
 uuid = "ab46fb84-d57c-11e9-2f65-6f72e4a7229f"
 authors = ["Kai Xu <xukai921110@gmail.com>", "Júlio Hoffimann <julio.hoffimann@gmail.com>"]
-version = "0.4.0"
+version = "0.4.1"
 
 [deps]
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
@@ -13,7 +13,7 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 [compat]
 Parameters = "0.12"
 Requires = "0.5, 1"
-StatsBase = "0.32"
+StatsBase = "0.32, 0.33"
 julia = "1"
 
 [extras]
