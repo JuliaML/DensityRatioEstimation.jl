@@ -2,8 +2,8 @@
 # Licensed under the ISC License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-import .Convex
-import .ECOS: ECOSSolver
+using .Convex
+using .ECOS
 
 function _kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{ConvexLib})
   # retrieve parameters
@@ -25,7 +25,7 @@ function _kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{ConvexLib})
   problem = Convex.maximize(objective, constraints)
 
   # solve problem with ECOS solver
-  Convex.solve!(problem, ECOSSolver(verbose=false))
+  Convex.solve!(problem, ECOS.Optimizer(verbose=false))
 
   # optimal coefficients
   vec(α.value)
