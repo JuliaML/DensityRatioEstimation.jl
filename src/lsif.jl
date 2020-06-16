@@ -9,8 +9,8 @@ Least squares importance fitting.
 
 ## Parameters
 
-* `σ` - Bandwidth of Gaussian kernel (default to `1.0`)
-* `b` - Maximum number of radial basis functions (default to `20`)
+* `σ` - Bandwidth of Gaussian kernel (default to `2.0`)
+* `b` - Maximum number of radial basis functions (default to `10`)
 * `λ` - Regularization parameter (default to `0.001`)
 
 ## References
@@ -23,8 +23,8 @@ Importance Estimation
 * Júlio Hoffimann (julio.hoffimann@gmail.com)
 """
 @with_kw struct LSIF{T} <: DensityRatioEstimator
-  σ::T=1.0
-  b::Int=20
+  σ::T=2.0
+  b::Int=10
   λ::T=0.001
 end
 
