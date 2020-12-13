@@ -1,13 +1,13 @@
 <p align="center">
   <img src="docs/DensRatio.png" height="200"><br>
-  <a href="https://travis-ci.org/JuliaEarth/DensityRatioEstimation.jl">
-    <img src="https://travis-ci.org/JuliaEarth/DensityRatioEstimation.jl.svg?branch=master">
+  <a href="https://github.com/JuliaEarth/DensityRatioEstimation.jl/actions">
+    <img src="https://img.shields.io/github/workflow/status/JuliaEarth/DensityRatioEstimation.jl/CI?style=flat-square">
   </a>
   <a href="https://codecov.io/gh/JuliaEarth/DensityRatioEstimation.jl">
-    <img src="https://codecov.io/gh/JuliaEarth/DensityRatioEstimation.jl/branch/master/graph/badge.svg">
+    <img src="https://img.shields.io/codecov/c/github/JuliaEarth/DensityRatioEstimation.jl?style=flat-square">
   </a>
   <a href="LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square">
   </a>
 </p>
 
