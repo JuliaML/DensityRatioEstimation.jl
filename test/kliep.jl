@@ -1,8 +1,8 @@
 @testset "KLIEP -- $optlib" for optlib in [OptimLib, ConvexLib]
   for (i, (pair, rtol)) in enumerate([(pair₁, 2e-1), (pair₂, 4e-1)])
     d_nu, d_de = pair
-    Random.seed!(123)
-    x_nu, x_de = rand(d_nu, 1_000), rand(d_de, 500)
+    rng = MersenneTwister(42)
+    x_nu, x_de = rand(rng, d_nu, 1_000), rand(rng, d_de, 500)
 
     # estimated density ratio
     σ, b = 1.0, 100
@@ -17,7 +17,7 @@
 
     if visualtests
       gr(size=(800, 800))
-      @plottest plot_d_nu(pair, x_de, r̂) joinpath(datadir, "KLIEP-$optlib-$i.png") !istravis
+      @test_reference "data/KLIEP-$optlib-$i.png" plot_d_nu(pair, x_de, r̂)
     end
   end
 end

@@ -5,21 +5,17 @@ using Statistics
 using Optim
 using JuMP, Ipopt
 using Convex, ECOS
-using Plots, VisualRegressionTests
-using Test, Pkg, Random
+using Test, Random, Plots
+using ReferenceTests, ImageIO
 
 # workaround GR warnings
 ENV["GKSwstype"] = "100"
 
 # environment settings
+isCI = "CI" ∈ keys(ENV)
 islinux = Sys.islinux()
-istravis = "TRAVIS" ∈ keys(ENV)
+visualtests = !isCI || (isCI && islinux)
 datadir = joinpath(@__DIR__,"data")
-visualtests = !istravis || (istravis && islinux)
-if !istravis
-  Pkg.add("Gtk")
-  using Gtk
-end
 
 # helper funcions
 include("utils.jl")
