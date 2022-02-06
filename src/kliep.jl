@@ -21,9 +21,10 @@ Kullback-Leibler importance estimation procedure (KLIEP).
 
 * Júlio Hoffimann (julio.hoffimann@gmail.com)
 """
-@with_kw struct KLIEP{T} <: DensityRatioEstimator
+@with_kw struct KLIEP{T,RNG} <: DensityRatioEstimator
   σ::T=2.0
   b::Int=10
+  rng::RNG=Random.GLOBAL_RNG
 end
 
 default_optlib(dre::Type{<:KLIEP}) = OptimLib
@@ -49,7 +50,7 @@ end
 
 # constants involved in KLIEP optimization
 function _kliep_consts(x_nu, x_de, dre)
-  x_ba = sample(x_nu, min(length(x_nu), dre.b), replace=false)
+  x_ba = sample(dre.rng, x_nu, min(length(x_nu), dre.b), replace=false)
   K_nu = gaussian_gramian(x_nu, x_ba, σ=dre.σ)
   K_de = gaussian_gramian(x_de, x_ba, σ=dre.σ)
 

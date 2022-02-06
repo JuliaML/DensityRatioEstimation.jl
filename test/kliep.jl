@@ -5,8 +5,8 @@
     x_nu, x_de = rand(rng, d_nu, 1_000), rand(rng, d_de, 500)
 
     # estimated density ratio
-    σ, b = 1.0, 100
-    r̂ = densratio(x_nu, x_de, KLIEP(σ=σ, b=b), optlib=optlib)
+    kliep = KLIEP(σ=1.0, b=100, rng=rng)
+    r̂ = densratio(x_nu, x_de, kliep, optlib=optlib)
 
     # simplex constraints
     @test abs(mean(r̂) - 1) ≤ 1e-2

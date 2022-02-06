@@ -5,7 +5,7 @@
     x_nu, x_de = rand(rng, d_nu, 1000), rand(rng, d_de, 500)
 
     # estimated density ratio
-    lsif = LSIF(σ=1.0, b=100)
+    lsif = LSIF(σ=1.0, b=100, rng=rng)
     r̂ = densratio(x_nu, x_de, lsif, optlib=optlib)
 
     # simplex constraints

@@ -8,6 +8,7 @@ using StatsBase
 using Statistics
 using LinearAlgebra
 using Parameters
+using Random
 
 # implement fit for estimators
 import StatsBase: fit
