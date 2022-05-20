@@ -1,10 +1,10 @@
 <p align="center">
   <img src="docs/DensRatio.png" height="200"><br>
-  <a href="https://github.com/JuliaEarth/DensityRatioEstimation.jl/actions">
-    <img src="https://img.shields.io/github/workflow/status/JuliaEarth/DensityRatioEstimation.jl/CI?style=flat-square">
+  <a href="https://github.com/JuliaML/DensityRatioEstimation.jl/actions">
+    <img src="https://img.shields.io/github/workflow/status/JuliaML/DensityRatioEstimation.jl/CI?style=flat-square">
   </a>
-  <a href="https://codecov.io/gh/JuliaEarth/DensityRatioEstimation.jl">
-    <img src="https://img.shields.io/codecov/c/github/JuliaEarth/DensityRatioEstimation.jl?style=flat-square">
+  <a href="https://codecov.io/gh/JuliaML/DensityRatioEstimation.jl">
+    <img src="https://img.shields.io/codecov/c/github/JuliaML/DensityRatioEstimation.jl?style=flat-square">
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square">
