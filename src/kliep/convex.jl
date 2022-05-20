@@ -25,7 +25,7 @@ function _kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{ConvexLib})
   problem = Convex.maximize(objective, constraints)
 
   # solve problem with ECOS solver
-  Convex.solve!(problem, ECOS.Optimizer(verbose=false))
+  Convex.solve!(problem, ECOS.Optimizer, silent_solver=true)
 
   # optimal coefficients
   vec(α.value)
