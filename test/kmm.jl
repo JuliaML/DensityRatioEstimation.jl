@@ -1,4 +1,4 @@
-@testset "KMM -- $optlib" for optlib in [JuliaLib, JuMPLib]
+@testset "$(nameof(dreType)) -- $optlib" for (dreType, optlib) in zip([uKMM, uKMM, KMM], [JuliaLib, JuMPLib, JuMPLib])
   for (i, (pair, rtol)) in enumerate([(pair₁, 2e-1), (pair₂, 4e-1)])
     d_nu, d_de = pair
     rng = MersenneTwister(42)
@@ -6,13 +6,18 @@
 
     # estimated density ratio
     D = [sqrt(DensityRatioEstimation.euclidsq(x, y)) for x in x_nu, y in x_de]
-    σ, B, ϵ, λ = median(D), Inf, 0.001, 0.01
-    kmm = KMM(σ=σ, B=B, ϵ=ϵ,  λ=λ)
+    σ, λ = median(D), 0.01
+    kmm = dreType(σ=σ, λ=λ)
     r̂ = densratio(x_nu, x_de, kmm; optlib=optlib)
 
-    # simplex constraints
     @test abs(mean(r̂) - 1) ≤ 1e-2
-    @test all(r̂ .≤ B)
+
+    # simplex constraints
+    if dreType == KMM
+      @test all(0 .≤ r̂)
+      @test all(r̂ .≤ kmm.B)
+      @test all((1-kmm.ϵ) ≤ mean(r̂) ≤ (1+kmm.ϵ))
+    end
 
     # compare against true ratio
     r = pdf.(d_nu, x_de) ./ pdf.(d_de, x_de)
@@ -29,7 +34,7 @@
 
     if visualtests
       gr(size=(800, 800))
-      @test_reference "data/KMM-$optlib-$i.png" plot_d_nu(pair, x_de, r̂)
+      @test_reference "data/$(nameof(dreType))-$optlib-$i.png" plot_d_nu(pair, x_de, r̂)
     end
   end
 end
