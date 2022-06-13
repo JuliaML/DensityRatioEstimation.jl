@@ -48,6 +48,7 @@ Currently, this package implements the following estimators:
 | Kernel Mean Matching | `KMM`, `uKMM` | [Huang et al. 2006](https://papers.nips.cc/paper/3075-correcting-sample-selection-bias-by-unlabeled-data.pdf) |
 | Kullback-Leibler Importance Estimation Procedure | `KLIEP` | [Sugiyama et al. 2008](https://link.springer.com/article/10.1007/s10463-008-0197-x) |
 | Least-Squares Importance Fitting | `LSIF` | [Kanamori et al. 2009](http://www.jmlr.org/papers/volume10/kanamori09a/kanamori09a.pdf) |
+
 [1] We use the naming convention of prefixing the type name with `u` for the unconstrained variant of the corresponding estimator.
 
 The fourth argument `optlib` specifies the optimization package used to implement
