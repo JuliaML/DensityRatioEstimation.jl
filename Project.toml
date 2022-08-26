@@ -1,7 +1,7 @@
 name = "DensityRatioEstimation"
 uuid = "ab46fb84-d57c-11e9-2f65-6f72e4a7229f"
 authors = ["Kai Xu <xukai921110@gmail.com>", "Júlio Hoffimann <julio.hoffimann@gmail.com>"]
-version = "0.6.0"
+version = "1.0.0"
 
 [deps]
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
