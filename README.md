@@ -1,7 +1,7 @@
 <p align="center">
   <img src="docs/DensRatio.png" height="200"><br>
   <a href="https://github.com/JuliaML/DensityRatioEstimation.jl/actions">
-    <img src="https://img.shields.io/github/workflow/status/JuliaML/DensityRatioEstimation.jl/CI?style=flat-square">
+    <img src="https://img.shields.io/github/actions/workflow/status/JuliaML/DensityRatioEstimation.jl/CI.yml?branch=master&style=flat-square">
   </a>
   <a href="https://codecov.io/gh/JuliaML/DensityRatioEstimation.jl">
     <img src="https://img.shields.io/codecov/c/github/JuliaML/DensityRatioEstimation.jl?style=flat-square">
