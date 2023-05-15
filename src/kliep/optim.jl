@@ -19,37 +19,37 @@ function _kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{OptimLib})
   lc = uc = [n_de]
 
   # constants for inequality constraints
-  T  = eltype(K_de)
+  T = eltype(K_de)
   lx = fill(zero(T), b)
   ux = fill(Inf, b)
 
   # objective
-  f(α) = -sum(log, K*α)
+  f(α) = -sum(log, K * α)
   function ∇f!(g, α)
-    p = K*α
+    p = K * α
     for l in 1:b
-      g[l] = -sum(K[j,l] / p[j] for j in 1:n_nu)
+      g[l] = -sum(K[j, l] / p[j] for j in 1:n_nu)
     end
   end
   function ∇²f!(h, α)
-    p = K*α
+    p = K * α
     for k in 1:b, l in 1:b
-      h[k,l] = sum(view(K,:,k) .* view(K,:,l) ./ p)
+      h[k, l] = sum(view(K, :, k) .* view(K, :, l) ./ p)
     end
   end
 
   # equality constraint
-  c!(c, α)    = c  .= A*α
-  J!(J, α)    = J  .= A
+  c!(c, α) = c .= A * α
+  J!(J, α) = J .= A
   H!(H, α, λ) = H .+= 0
 
   # initial guess
-  αₒ = fill(n_de/sum(A), b)
+  αₒ = fill(n_de / sum(A), b)
 
   # optimization problem
-  objective   = TwiceDifferentiable(f, ∇f!, ∇²f!, αₒ)
+  objective = TwiceDifferentiable(f, ∇f!, ∇²f!, αₒ)
   constraints = TwiceDifferentiableConstraints(c!, J!, H!, lx, ux, lc, uc)
-  initguess   = αₒ
+  initguess = αₒ
 
   # solve problem with interior-point primal-dual Newton
   solution = optimize(objective, constraints, initguess, IPNewton())

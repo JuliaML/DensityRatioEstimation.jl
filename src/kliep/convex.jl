@@ -17,9 +17,10 @@ function _kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{ConvexLib})
   k = sum(K_de, dims=1)
 
   # objective function and constraints
-  α = Convex.Variable(b); w = K*α
-  objective   = sum(log(w[i]) for i in 1:n_nu)
-  constraints = [α ≥ 0, dot(α,k) == n_de]
+  α = Convex.Variable(b)
+  w = K * α
+  objective = sum(log(w[i]) for i in 1:n_nu)
+  constraints = [α ≥ 0, dot(α, k) == n_de]
 
   # optimization problem
   problem = Convex.maximize(objective, constraints)

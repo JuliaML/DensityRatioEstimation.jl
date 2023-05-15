@@ -23,25 +23,23 @@ Importance Estimation
 * Júlio Hoffimann (julio.hoffimann@gmail.com)
 """
 @with_kw struct LSIF{T,RNG} <: DensityRatioEstimator
-  σ::T=2.0
-  b::Int=10
-  λ::T=0.001
-  rng::RNG=Random.GLOBAL_RNG
+  σ::T = 2.0
+  b::Int = 10
+  λ::T = 0.001
+  rng::RNG = Random.GLOBAL_RNG
 end
 
 default_optlib(dre::Type{<:LSIF}) = OptimLib
 
 available_optlib(dre::Type{<:LSIF}) = [OptimLib, JuMPLib]
 
-function _densratio(x_nu, x_de, dre::LSIF,
-                    optlib::Type{<:OptimizationLibrary})
+function _densratio(x_nu, x_de, dre::LSIF, optlib::Type{<:OptimizationLibrary})
   K_de, H, h, x_ba = _lsif_consts(x_nu, x_de, dre)
   α = _lsif_coeffs(H, h, dre, optlib)
-  K_de*α
+  K_de * α
 end
 
-function _densratiofunc(x_nu, x_de, dre::LSIF,
-                        optlib::Type{<:OptimizationLibrary})
+function _densratiofunc(x_nu, x_de, dre::LSIF, optlib::Type{<:OptimizationLibrary})
   K_de, H, h, x_ba = _lsif_consts(x_nu, x_de, dre)
   α = _lsif_coeffs(H, h, dre, optlib)
   function r(x)
@@ -61,7 +59,7 @@ function _lsif_consts(x_nu, x_de, dre)
     φ′ = view(K_de, :, l′)
     for l in 1:l′
       φ = view(K_de, :, l)
-      Φ[l,l′] = mean(φ .* φ′)
+      Φ[l, l′] = mean(φ .* φ′)
     end
   end
   H = Symmetric(Φ)
@@ -75,5 +73,4 @@ end
 
 Return the coefficients of LSIF basis expansion.
 """
-_lsif_coeffs(H, h, dre::LSIF, optlib::Type{<:OptimizationLibrary}) =
-  @error "not implemented"
+_lsif_coeffs(H, h, dre::LSIF, optlib::Type{<:OptimizationLibrary}) = @error "not implemented"

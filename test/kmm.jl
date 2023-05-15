@@ -16,12 +16,12 @@
     if dreType == KMM
       @test all(0 .≤ r̂)
       @test all(r̂ .≤ kmm.B)
-      @test all((1-kmm.ϵ) ≤ mean(r̂) ≤ (1+kmm.ϵ))
+      @test all((1 - kmm.ϵ) ≤ mean(r̂) ≤ (1 + kmm.ϵ))
     end
 
     # compare against true ratio
     r = pdf.(d_nu, x_de) ./ pdf.(d_de, x_de)
-    @test r ≈ r̂ rtol=rtol
+    @test r ≈ r̂ rtol = rtol
 
     # type consistency
     @test eltype(r) == typeof(σ)
