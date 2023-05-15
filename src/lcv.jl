@@ -24,13 +24,11 @@ end
 
 LCV(ranges::NamedTuple) = LCV(ranges, 10)
 
-function _fit(::Type{<:KLIEP}, x_nu, x_de,
-              fitter::EstimatorFitter,
-              optlib::Type{<:OptimizationLibrary})
+function _fit(::Type{<:KLIEP}, x_nu, x_de, fitter::EstimatorFitter, optlib::Type{<:OptimizationLibrary})
   # retrieve parameters
   ranges = fitter.ranges
   nfolds = fitter.nfolds
-  npts   = length(x_nu)
+  npts = length(x_nu)
 
   @assert nfolds ≤ npts "number of folds must be smaller than number of numerator samples"
 
@@ -48,8 +46,8 @@ function _fit(::Type{<:KLIEP}, x_nu, x_de,
     # estimate loss with cross-validation
     Ĵₖ = map(1:nfolds) do k
       # training and hold-out samples
-      train = [ind for i in vcat(1:k-1, k+1:nfolds) for ind in folds[i]]
-      hold  = folds[k]
+      train = [ind for i in vcat(1:(k - 1), (k + 1):nfolds) for ind in folds[i]]
+      hold = folds[k]
 
       # perform estimation with training samples
       r = densratiofunc(x_nu[train], x_de, dre, optlib=optlib)

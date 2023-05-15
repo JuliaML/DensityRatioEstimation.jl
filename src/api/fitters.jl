@@ -24,14 +24,12 @@ Hyperparameter tuning is not defined for all
 density ratio estimators. Therefore, this
 function may not work with some estimators.
 """
-fit(dre::Type{<:DensityRatioEstimator}, x_nu, x_de,
-    fitter::EstimatorFitter; optlib=default_optlib(dre)) =
+fit(dre::Type{<:DensityRatioEstimator}, x_nu, x_de, fitter::EstimatorFitter; optlib=default_optlib(dre)) =
   _fit(dre, x_nu, x_de, fitter, optlib)
 
 ################################################
 ## functions to be implemented by new fitters ##
 ################################################
 
-_fit(dre::Type{DensityRatioEstimator}, x_nu, x_de,
-     fitter::EstimatorFitter, optlib::Type{OptimizationLibrary}) =
+_fit(dre::Type{DensityRatioEstimator}, x_nu, x_de, fitter::EstimatorFitter, optlib::Type{OptimizationLibrary}) =
   @error "not implemented"

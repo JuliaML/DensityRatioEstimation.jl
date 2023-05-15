@@ -22,24 +22,22 @@ Kullback-Leibler importance estimation procedure (KLIEP).
 * Júlio Hoffimann (julio.hoffimann@gmail.com)
 """
 @with_kw struct KLIEP{T,RNG} <: DensityRatioEstimator
-  σ::T=2.0
-  b::Int=10
-  rng::RNG=Random.GLOBAL_RNG
+  σ::T = 2.0
+  b::Int = 10
+  rng::RNG = Random.GLOBAL_RNG
 end
 
 default_optlib(dre::Type{<:KLIEP}) = OptimLib
 
 available_optlib(dre::Type{<:KLIEP}) = [OptimLib, ConvexLib]
 
-function _densratio(x_nu, x_de, dre::KLIEP,
-                    optlib::Type{<:OptimizationLibrary})
+function _densratio(x_nu, x_de, dre::KLIEP, optlib::Type{<:OptimizationLibrary})
   K_nu, K_de, x_ba = _kliep_consts(x_nu, x_de, dre)
   α = _kliep_coeffs(K_nu, K_de, dre, optlib)
-  K_de*α
+  K_de * α
 end
 
-function _densratiofunc(x_nu, x_de, dre::KLIEP,
-                        optlib::Type{<:OptimizationLibrary})
+function _densratiofunc(x_nu, x_de, dre::KLIEP, optlib::Type{<:OptimizationLibrary})
   K_nu, K_de, x_ba = _kliep_consts(x_nu, x_de, dre)
   α = _kliep_coeffs(K_nu, K_de, dre, optlib)
   function r(x)
@@ -62,6 +60,4 @@ end
 
 Return the coefficients of KLIEP basis expansion.
 """
-_kliep_coeffs(K_nu, K_de, dre::KLIEP,
-              optlib::Type{<:OptimizationLibrary}) =
-  @error "not implemented"
+_kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{<:OptimizationLibrary}) = @error "not implemented"

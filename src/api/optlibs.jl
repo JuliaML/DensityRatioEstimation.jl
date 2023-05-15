@@ -10,7 +10,7 @@ An optimization library (e.g. Optim.jl, Convex.jl, JuMP.jl).
 abstract type OptimizationLibrary end
 
 # optimization libraries for dispatch
-struct JuliaLib  <: OptimizationLibrary end
-struct OptimLib  <: OptimizationLibrary end
+struct JuliaLib <: OptimizationLibrary end
+struct OptimLib <: OptimizationLibrary end
 struct ConvexLib <: OptimizationLibrary end
-struct JuMPLib   <: OptimizationLibrary end
+struct JuMPLib <: OptimizationLibrary end

@@ -26,8 +26,7 @@ the list below:
 
 See also [`densratiofunc`](@ref).
 """
-densratio(x_nu, x_de, dre::DensityRatioEstimator;
-          optlib=default_optlib(typeof(dre))) =
+densratio(x_nu, x_de, dre::DensityRatioEstimator; optlib=default_optlib(typeof(dre))) =
   _densratio(x_nu, x_de, dre, optlib)
 
 """
@@ -44,8 +43,7 @@ See also [`densratio`](@ref).
 Only some estimators define a ratio function that can
 be evaluated outside `x_de`.
 """
-densratiofunc(x_nu, x_de, dre::DensityRatioEstimator;
-              optlib=default_optlib(typeof(dre))) =
+densratiofunc(x_nu, x_de, dre::DensityRatioEstimator; optlib=default_optlib(typeof(dre))) =
   _densratiofunc(x_nu, x_de, dre, optlib)
 
 """
@@ -55,8 +53,7 @@ Return default optimization library for density ratio
 estimator `dre`. The function can also be called on the
 type `typeof(dre)`.
 """
-default_optlib(dre::DensityRatioEstimator) =
-  default_optlib(typeof(dre))
+default_optlib(dre::DensityRatioEstimator) = default_optlib(typeof(dre))
 
 """
     available_optlib(dre)
@@ -64,23 +61,16 @@ default_optlib(dre::DensityRatioEstimator) =
 Return list of implementations available via different
 optimization frameworks.
 """
-available_optlib(dre::DensityRatioEstimator) =
-  available_optlib(typeof(dre))
+available_optlib(dre::DensityRatioEstimator) = available_optlib(typeof(dre))
 
 ###################################################
 ## functions to be implemented by new estimators ##
 ###################################################
 
-_densratio(x_nu, x_de, dre::DensityRatioEstimator,
-           optlib::Type{OptimizationLibrary}) =
-  @error "not implemented"
+_densratio(x_nu, x_de, dre::DensityRatioEstimator, optlib::Type{OptimizationLibrary}) = @error "not implemented"
 
-_densratiofunc(x_nu, x_de, dre::DensityRatioEstimator,
-               optlib::Type{OptimizationLibrary}) =
-  @error "not implemented"
+_densratiofunc(x_nu, x_de, dre::DensityRatioEstimator, optlib::Type{OptimizationLibrary}) = @error "not implemented"
 
-default_optlib(dre::Type{DensityRatioEstimator}) =
-  @error "not implemented"
+default_optlib(dre::Type{DensityRatioEstimator}) = @error "not implemented"
 
-available_optlib(dre::Type{DensityRatioEstimator}) =
-  @error "not implemented"
+available_optlib(dre::Type{DensityRatioEstimator}) = @error "not implemented"

@@ -13,7 +13,7 @@
     @test all(r̂ .≤ Inf)
 
     r = pdf.(d_nu, x_de) ./ pdf.(d_de, x_de)
-    @test r ≈ r̂ rtol=rtol
+    @test r ≈ r̂ rtol = rtol
 
     if visualtests
       gr(size=(800, 800))

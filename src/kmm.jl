@@ -20,8 +20,7 @@ function _kmm_consts(x_nu, x_de, dre::AbstractKMM)
   Kdede, typeof(σ)(n_de / n_nu) * sum(Kdenu, dims=2)
 end
 
-function _densratio(x_nu, x_de, dre::AbstractKMM,
-                    optlib::Type{<:OptimizationLibrary})
+function _densratio(x_nu, x_de, dre::AbstractKMM, optlib::Type{<:OptimizationLibrary})
   K, κ = _kmm_consts(x_nu, x_de, dre)
   _kmm_ratios(K, κ, dre, optlib)
 end
@@ -47,8 +46,8 @@ Unconstrained Kernel Mean Matching (KMM).
 * Kai Xu (xukai921110@gmail.com)
 """
 @with_kw struct uKMM{T} <: AbstractKMM
-  σ::T=2.0
-  λ::T=0.001
+  σ::T = 2.0
+  λ::T = 0.001
 end
 
 default_optlib(dre::Type{<:uKMM}) = JuliaLib
@@ -78,10 +77,10 @@ Kernel Mean Matching (KMM).
 * Kai Xu (xukai921110@gmail.com)
 """
 @with_kw struct KMM{T} <: AbstractKMM
-  σ::T=2.0
-  B::T=Inf
-  ϵ::T=0.01
-  λ::T=0.001
+  σ::T = 2.0
+  B::T = Inf
+  ϵ::T = 0.01
+  λ::T = 0.001
 end
 
 default_optlib(dre::Type{<:KMM}) = JuMPLib
