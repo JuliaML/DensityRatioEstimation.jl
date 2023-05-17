@@ -13,8 +13,10 @@ module DensityRatioEstimationGPUArraysExt
     using LinearAlgebra
 
     # Aviod `mat + a * I` with CUDA which involes scalar operations and is slow
-    function DensityRatioEstimation.safe_diagm(mat::<:M, a::T) where {M<:GPUArrays.AbstractGPUArray{T, 2},T}
-        LinearAlgebra.Diagonal(M(fill(a,size(mat,1))))
+    function DensityRatioEstimation.safe_diagm(mat::M, a::T) where {M<:GPUArrays.AbstractGPUArray{T, 2},T}
+        diag = similar(mat,size(m,1))
+        fill!(diag,a)
+        LinearAlgebra.Diagonal(diag)
     end
 
 end #module
