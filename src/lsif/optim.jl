@@ -2,9 +2,9 @@
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-using .Optim
+#This file is part of the module DensityRatioEstimationOptimExt.
 
-function _lsif_coeffs(H, h, dre::LSIF, optlib::Type{OptimLib})
+function DensityRatioEstimation._lsif_coeffs(H, h, dre::LSIF, optlib::Type{OptimLib})
   # retrieve parameters
   λ, b = dre.λ, length(h)
 

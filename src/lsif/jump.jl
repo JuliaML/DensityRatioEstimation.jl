@@ -2,10 +2,9 @@
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-using .JuMP
-using .Ipopt
+#This file is part of the module DensityRatioEstimationJuMPExt.
 
-function _lsif_coeffs(H, h, dre::LSIF, optlib::Type{JuMPLib})
+function DensityRatioEstimation._lsif_coeffs(H, h, dre::LSIF, optlib::Type{JuMPLib})
   # retrieve parameters
   λ, b = dre.λ, length(h)
 
