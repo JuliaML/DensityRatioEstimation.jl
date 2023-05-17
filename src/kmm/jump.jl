@@ -2,8 +2,7 @@
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-using .JuMP
-using .Ipopt
+#This file is part of the module DensityRatioEstimationJuMPExt.
 
 function _kmm_jump_model(K, κ, dre::AbstractKMM, optlib::Type{JuMPLib})
   # number of denominator samples
@@ -17,7 +16,7 @@ function _kmm_jump_model(K, κ, dre::AbstractKMM, optlib::Type{JuMPLib})
   return model, β
 end
 
-function _kmm_ratios(K, κ, dre::uKMM, optlib::Type{JuMPLib})
+function DensityRatioEstimation._kmm_ratios(K, κ, dre::uKMM, optlib::Type{JuMPLib})
   # build the problem without constraints
   model, β = _kmm_jump_model(K, κ, dre, optlib)
 
@@ -28,7 +27,7 @@ function _kmm_ratios(K, κ, dre::uKMM, optlib::Type{JuMPLib})
   value.(β)
 end
 
-function _kmm_ratios(K, κ, dre::KMM, optlib::Type{JuMPLib})
+function DensityRatioEstimation._kmm_ratios(K, κ, dre::KMM, optlib::Type{JuMPLib})
   # retrieve parameters
   @unpack B, ϵ = dre
 
