@@ -28,6 +28,13 @@ DensityRatioEstimationConvexExt = ["Convex", "ECOS"]
 DensityRatioEstimationJuMPExt = ["JuMP", "Ipopt"]
 
 [compat]
+ChainRulesCore = "1"
+Convex = "0.15"
+ECOS = "1"
+GPUArrays = ""
+Ipopt = "1"
+JuMP = "1"
+Optim = "1"
 Parameters = "0.12"
 Requires = "1"
 StatsBase = "0.32, 0.33"
