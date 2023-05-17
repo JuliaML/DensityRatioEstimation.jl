@@ -12,7 +12,7 @@ module DensityRatioEstimationOptimExt
         using ..DensityRatioEstimation: KLIEP, LSIF, OptimLib
         using ..Optim
     end
-
+    using LinearAlgebra
     include("../src/kliep/optim.jl")
     include("../src/lsif/optim.jl")
 
