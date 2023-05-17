@@ -6,11 +6,13 @@ module DensityRatioEstimationJuMPExt
     if isdefined(Base, :get_extension)
         using DensityRatioEstimation
         using DensityRatioEstimation: LSIF, JuMPLib, AbstractKMM, uKMM, KMM
+        using DensityRatioEstimation.Parameters
         using JuMP
         using Ipopt
     else
         using ..DensityRatioEstimation
         using ..DensityRatioEstimation: LSIF, JuMPLib, AbstractKMM, uKMM, KMM
+        using ..DensityRatioEstimation.Parameters
         using ..JuMP
         using ..Ipopt
     end
