@@ -32,9 +32,12 @@ include("lcv.jl")
 # pure Julia implementations
 include("kmm/julia.jl")
 
-# implementations that require extra dependencies
+
 if !isdefined(Base,:get_extension)
-using Requires
+  using Requires
+end
+# implementations that require extra dependencies
+@static if !isdefined(Base,:get_extension)
   function __init__()
 
     #Solvers
