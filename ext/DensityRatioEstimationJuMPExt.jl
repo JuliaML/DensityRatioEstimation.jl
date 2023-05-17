@@ -2,6 +2,7 @@
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 module DensityRatioEstimationJuMPExt
+
     if isdefined(Base, :get_extension)
         using DensityRatioEstimation
         using DensityRatioEstimation: LSIF, JuMPLib, AbstractKMM, uKMM, KMM
@@ -13,6 +14,7 @@ module DensityRatioEstimationJuMPExt
         using ..JuMP
         using ..Ipopt
     end
+    
     include("../src/kmm/jump.jl")
     include("../src/lsif/jump.jl")
 
