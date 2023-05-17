@@ -11,6 +11,6 @@ else
     using ..ChainRulesCore
 end
 
-ChainRulesCore.@non_differentiable DensityRatioEstimation.safe_diagm
+ChainRulesCore.@non_differentiable DensityRatioEstimation.safe_diagm(::Any,::Any)
 
 end #module
