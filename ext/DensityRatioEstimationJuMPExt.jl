@@ -16,6 +16,7 @@ module DensityRatioEstimationJuMPExt
         using ..JuMP
         using ..Ipopt
     end
+    using LinearAlgebra
     
     include("../src/kmm/jump.jl")
     include("../src/lsif/jump.jl")
