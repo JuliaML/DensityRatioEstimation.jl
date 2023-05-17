@@ -4,13 +4,13 @@
 module DensityRatioEstimationChainRulesCoreExt
 
 if isdefined(Base, :get_extension)
-    using DensityRatioEstimation
-    using ChainRulesCore
+  using DensityRatioEstimation
+  using ChainRulesCore
 else
-    using ..DensityRatioEstimation
-    using ..ChainRulesCore
+  using ..DensityRatioEstimation
+  using ..ChainRulesCore
 end
 
-ChainRulesCore.@non_differentiable DensityRatioEstimation.safe_diagm(::Any,::Any)
+ChainRulesCore.@non_differentiable DensityRatioEstimation.safe_diagm(::Any, ::Any)
 
 end #module

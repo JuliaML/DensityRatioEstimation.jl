@@ -3,17 +3,17 @@
 # ------------------------------------------------------------------
 module DensityRatioEstimationOptimExt
 
-    if isdefined(Base, :get_extension)
-        using DensityRatioEstimation
-        using DensityRatioEstimation: KLIEP, LSIF, OptimLib
-        using Optim
-    else
-        using ..DensityRatioEstimation
-        using ..DensityRatioEstimation: KLIEP, LSIF, OptimLib
-        using ..Optim
-    end
-    using LinearAlgebra
-    include("../src/kliep/optim.jl")
-    include("../src/lsif/optim.jl")
+if isdefined(Base, :get_extension)
+  using DensityRatioEstimation
+  using DensityRatioEstimation: KLIEP, LSIF, OptimLib
+  using Optim
+else
+  using ..DensityRatioEstimation
+  using ..DensityRatioEstimation: KLIEP, LSIF, OptimLib
+  using ..Optim
+end
+using LinearAlgebra
+include("../src/kliep/optim.jl")
+include("../src/lsif/optim.jl")
 
 end #module
