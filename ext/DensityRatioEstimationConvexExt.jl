@@ -3,18 +3,18 @@
 # ------------------------------------------------------------------
 module DensityRatioEstimationConvexExt
 
-    if isdefined(Base, :get_extension)
-        using DensityRatioEstimation
-        using DensityRatioEstimation: KLIEP, ConvexLib
-        using Convex
-        using ECOS
-    else
-        using ..DensityRatioEstimation
-        using ..DensityRatioEstimation: KLIEP, ConvexLib
-        using ..Convex
-        using ..ECOS
-    end
+if isdefined(Base, :get_extension)
+  using DensityRatioEstimation
+  using DensityRatioEstimation: KLIEP, ConvexLib
+  using Convex
+  using ECOS
+else
+  using ..DensityRatioEstimation
+  using ..DensityRatioEstimation: KLIEP, ConvexLib
+  using ..Convex
+  using ..ECOS
+end
 
-    include("../src/kliep/convex.jl")
+include("../src/kliep/convex.jl")
 
 end #module
