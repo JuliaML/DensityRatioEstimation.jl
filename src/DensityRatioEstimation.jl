@@ -33,9 +33,10 @@ include("lcv.jl")
 include("kmm/julia.jl")
 
 # implementations that require extra dependencies
-@static if !isdefined(Base, :get_extension)
+if !isdefined(Base, :get_extension)
   using Requires
-  
+end
+if !isdefined(Base, :get_extension)
   function __init__()
     # JuMP: KMM, LSIF
     @require JuMP = "4076af6c-e467-56ae-b986-b466b2749572" begin
