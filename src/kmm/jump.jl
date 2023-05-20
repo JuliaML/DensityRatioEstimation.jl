@@ -2,7 +2,7 @@
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-#This file is part of the module DensityRatioEstimationJuMPExt.
+# This file is part of the module DensityRatioEstimationJuMPExt.
 
 function _kmm_jump_model(K, κ, dre::AbstractKMM, optlib::Type{JuMPLib})
   # number of denominator samples
