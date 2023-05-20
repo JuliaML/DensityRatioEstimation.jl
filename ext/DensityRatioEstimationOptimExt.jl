@@ -1,6 +1,7 @@
 # ------------------------------------------------------------------
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
+
 module DensityRatioEstimationOptimExt
 
 if isdefined(Base, :get_extension)
@@ -12,7 +13,7 @@ else
   using ..DensityRatioEstimation: KLIEP, LSIF, OptimLib
   using ..Optim
 end
-using LinearAlgebra
+
 include("../src/kliep/optim.jl")
 include("../src/lsif/optim.jl")
 
