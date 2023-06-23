@@ -94,7 +94,7 @@ r = densratiofunc(x_nu, x_de, KLIEP())
 
 ### Hyperparameter tuning
 
-Methods like `KLIEP` are equiped with tuning strategies, and its hyperparameters
+Methods like `KLIEP` are equipped with tuning strategies, and its hyperparameters
 can be found using the following line:
 
 ```julia

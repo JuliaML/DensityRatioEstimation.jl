@@ -53,7 +53,7 @@ gaussian_gramian(esq, σ::AbstractFloat) = exp.(-esq ./ 2σ^2)
     safe_diagm(mat, a)
 
 Generate a squared matrix whose diagonal is `a` that is 
-compatible to perform addition on `mat`. It hebaves 
+compatible to perform addition on `mat`. It behaves 
 differently based on `mat` is on CPU or GPU.
 
 It is compatible with
