@@ -54,7 +54,7 @@ gaussian_gramian(esq, σ::AbstractFloat) = exp.(-esq ./ 2σ^2)
 
 Generate a squared matrix whose diagonal is `a` that is 
 compatible to perform addition on `mat`. It behaves 
-differently based on `mat` is on CPU or GPU.
+differently based on whether `mat` is on a CPU or GPU.
 
 It is compatible with
 - CuArrays.jl (see lib/cuarrays.jl)
