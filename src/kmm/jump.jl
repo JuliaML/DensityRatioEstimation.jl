@@ -34,7 +34,7 @@ function DensityRatioEstimation._kmm_ratios(K, κ, dre::KMM, optlib::Type{JuMPLi
   # build the problem without constraints
   model, β = _kmm_jump_model(K, κ, dre, optlib)
 
-  # adding constriants
+  # adding constraints
   @constraint(model, 0 .≤ β)
   isinf(B) || @constraint(model, β .≤ B)
   @constraint(model, (1 - ϵ) ≤ mean(β) ≤ (1 + ϵ))

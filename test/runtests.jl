@@ -17,7 +17,7 @@ islinux = Sys.islinux()
 visualtests = !isCI || (isCI && islinux)
 datadir = joinpath(@__DIR__, "data")
 
-# helper funcions
+# helper functions
 include("utils.jl")
 
 # simple cases for testing
