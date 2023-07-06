@@ -4,15 +4,9 @@
 
 module DensityRatioEstimationOptimExt
 
-if isdefined(Base, :get_extension)
-  using DensityRatioEstimation
-  using DensityRatioEstimation: KLIEP, LSIF, OptimLib
-  using Optim
-else
-  using ..DensityRatioEstimation
-  using ..DensityRatioEstimation: KLIEP, LSIF, OptimLib
-  using ..Optim
-end
+using DensityRatioEstimation
+using DensityRatioEstimation: KLIEP, LSIF, OptimLib
+using Optim
 
 using LinearAlgebra
 
