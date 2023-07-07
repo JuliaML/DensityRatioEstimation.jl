@@ -4,13 +4,8 @@
 
 module DensityRatioEstimationGPUArraysExt
 
-if isdefined(Base, :get_extension)
-  using DensityRatioEstimation
-  using GPUArrays
-else
-  using ..DensityRatioEstimation
-  using ..GPUArrays
-end
+using DensityRatioEstimation
+using GPUArrays
 using LinearAlgebra
 
 # Avoid `mat + a * I` with CUDA which involves scalar operations and is slow

@@ -4,17 +4,10 @@
 
 module DensityRatioEstimationConvexExt
 
-if isdefined(Base, :get_extension)
-  using DensityRatioEstimation
-  using DensityRatioEstimation: KLIEP, ConvexLib
-  using Convex
-  using ECOS
-else
-  using ..DensityRatioEstimation
-  using ..DensityRatioEstimation: KLIEP, ConvexLib
-  using ..Convex
-  using ..ECOS
-end
+using DensityRatioEstimation
+using DensityRatioEstimation: KLIEP, ConvexLib
+using Convex
+using ECOS
 
 include("../src/kliep/convex.jl")
 
