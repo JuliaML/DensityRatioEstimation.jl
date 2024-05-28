@@ -5,11 +5,10 @@ using Statistics
 using Optim
 using JuMP, Ipopt
 using Convex, ECOS
-using Test, Random, Plots
+using Test, StableRNGs
 using ReferenceTests, ImageIO
 
-# workaround GR warnings
-ENV["GKSwstype"] = "100"
+import CairoMakie as Mke
 
 # environment settings
 isCI = "CI" ∈ keys(ENV)

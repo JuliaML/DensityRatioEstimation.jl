@@ -25,7 +25,7 @@ function DensityRatioEstimation._kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Ty
   problem = Convex.maximize(objective, constraints)
 
   # solve problem with ECOS solver
-  Convex.solve!(problem, ECOS.Optimizer, silent_solver=true)
+  Convex.solve!(problem, ECOS.Optimizer, silent=true)
 
   # optimal coefficients
   vec(α.value)

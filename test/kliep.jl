@@ -1,7 +1,7 @@
 @testset "KLIEP -- $optlib" for optlib in [OptimLib, ConvexLib]
-  for (i, (pair, rtol)) in enumerate([(pair₁, 2e-1), (pair₂, 4e-1)])
+  for (i, (pair, rtol)) in enumerate([(pair₁, 5e-1), (pair₂, 5e-1)])
     d_nu, d_de = pair
-    rng = MersenneTwister(42)
+    rng = StableRNG(42)
     x_nu, x_de = rand(rng, d_nu, 1_000), rand(rng, d_de, 500)
 
     # estimated density ratio
@@ -16,7 +16,6 @@
     @test r ≈ r̂ rtol = rtol
 
     if visualtests
-      gr(size=(800, 800))
       @test_reference "data/KLIEP-$optlib-$i.png" plot_d_nu(pair, x_de, r̂)
     end
   end

@@ -18,8 +18,8 @@
   end
 
   for (d_nu, d_de) in [pair₁, pair₂]
-    Random.seed!(123)
-    x_nu, x_de = rand(d_nu, 100), rand(d_de, 200)
+    rng = StableRNG(123)
+    x_nu, x_de = rand(rng, d_nu, 100), rand(rng, d_de, 200)
     @testset "$(typeof(dre).name) -- $optlib" for (dre, optlib) in [
       (KMM(), JuMPLib),
       (KLIEP(), OptimLib),
