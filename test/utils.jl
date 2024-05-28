@@ -12,7 +12,7 @@ function plot_d_nu(pair, x_de, r̂)
   p̂s = r̂s .* pdf.(d_de, xs)
 
   fig = Mke.Figure(size=(800, 800))
-  ax = Mke.Axis(fig[1,1])
+  ax = Mke.Axis(fig[1, 1])
   Mke.lines!(ax, xs, ps, label="d_nu (actual)")
   Mke.lines!(ax, xs, p̂s, label="d_nu (estimate)")
   Mke.axislegend(ax)
