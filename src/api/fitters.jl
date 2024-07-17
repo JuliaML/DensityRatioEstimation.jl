@@ -31,5 +31,4 @@ fit(dre::Type{<:DensityRatioEstimator}, x_nu, x_de, fitter::EstimatorFitter; opt
 ## functions to be implemented by new fitters ##
 ################################################
 
-_fit(dre::Type{DensityRatioEstimator}, x_nu, x_de, fitter::EstimatorFitter, optlib::Type{OptimizationLibrary}) =
-  @error "not implemented"
+_fit(dre::Type{<:DensityRatioEstimator}, x_nu, x_de, fitter::EstimatorFitter, optlib::Type{<:OptimizationLibrary}) = _throw_not_fit_error(dre, fitter, optlib)
