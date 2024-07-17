@@ -86,3 +86,5 @@ end
 default_optlib(dre::Type{<:KMM}) = JuMPLib
 
 available_optlib(dre::Type{<:KMM}) = [JuMPLib]
+
+_kmm_ratios(K, κ, dre::AbstractKMM, optlib::Type{<:OptimizationLibrary}) = _throw_opt_error(dre, optlib)

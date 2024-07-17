@@ -73,4 +73,4 @@ end
 
 Return the coefficients of LSIF basis expansion.
 """
-_lsif_coeffs(H, h, dre::LSIF, optlib::Type{<:OptimizationLibrary}) = @error "not implemented"
+_lsif_coeffs(H, h, dre::LSIF, optlib::Type{<:OptimizationLibrary}) = _throw_opt_error(dre, optlib)

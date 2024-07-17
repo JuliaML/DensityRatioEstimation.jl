@@ -60,4 +60,4 @@ end
 
 Return the coefficients of KLIEP basis expansion.
 """
-_kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{<:OptimizationLibrary}) = @error "not implemented"
+_kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{<:OptimizationLibrary}) = _throw_opt_error(dre, optlib)
