@@ -7,13 +7,11 @@ using ReferenceTests, ImageIO
 import CairoMakie as Mke
 
 @testset "Throw errors: optlib not loaded" begin
-
   @test_throws ErrorException densratio([0], [0], KLIEP())
   @test_throws ErrorException densratiofunc([0], [0], KLIEP())
   @test_throws ErrorException densratio([0], [0], LSIF())
   @test_throws ErrorException densratiofunc([0], [0], LSIF())
-  @test_throws ErrorException densratio([0], [0], KMM(); optlib = JuMPLib)
-
+  @test_throws ErrorException densratio([0], [0], KMM(); optlib=JuMPLib)
 end
 
 using Optim
@@ -21,16 +19,13 @@ using JuMP, Ipopt
 using Convex, ECOS
 
 @testset "Throw errors: optlib not available" begin
-
-  @test_throws ErrorException densratio([0], [0], KLIEP(); optlib = JuMPLib)
-  @test_throws ErrorException densratio([0], [0], LSIF(); optlib = ConvexLib)
-  @test_throws ErrorException densratio([0], [0], KMM(); optlib = ConvexLib)
-
+  @test_throws ErrorException densratio([0], [0], KLIEP(); optlib=JuMPLib)
+  @test_throws ErrorException densratio([0], [0], LSIF(); optlib=ConvexLib)
+  @test_throws ErrorException densratio([0], [0], KMM(); optlib=ConvexLib)
 end
 
 @testset "Throw errors: undefined functions" begin
-
-  @test_throws ErrorException fit(KMM, [0], [0], LCV((σ=[1.],b=[10])))
+  @test_throws ErrorException fit(KMM, [0], [0], LCV((σ=[1.0], b=[10])))
 
   struct NewDRE <: DensityRatioEstimator end
 
@@ -38,7 +33,6 @@ end
   @test_throws ErrorException densratiofunc([0], [0], NewDRE())
   @test_throws ErrorException default_optlib(NewDRE)
   @test_throws ErrorException available_optlib(NewDRE)
-
 end
 
 # environment settings
