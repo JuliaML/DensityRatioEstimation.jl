@@ -63,9 +63,8 @@ can be simplified given that the optimization package is already loaded:
 r = densratio(x_nu, x_de, KLIEP())
 ```
 
-Different implementations of the same estimator are loaded using the
-[Requires.jl](https://github.com/MikeInnes/Requires.jl) package, and
-the keyword argument `optlib` can be any of:
+Different implementations of the same estimator are loaded using package extensions,
+and the keyword argument `optlib` can be any of:
 
 * `JuliaLib`  - Pure Julia implementation
 * `OptimLib`  - [Optim.jl](https://github.com/JuliaNLSolvers/Optim.jl) implementation
@@ -95,14 +94,14 @@ r = densratiofunc(x_nu, x_de, KLIEP())
 ### Hyperparameter tuning
 
 Methods like `KLIEP` are equipped with tuning strategies, and its hyperparameters
-can be found using the following line:
+can be found using the following code:
 
 ```julia
 dre = fit(KLIEP, x_nu, x_de, LCV((σ=[1.,2.,3.],b=[100]))
 ```
 
 The function returns a `KLIEP` instance with parameters optimized for the samples.
-In this case, the line uses likelihood cross-validation `LCV` as the tuning
+In this case, the code uses likelihood cross-validation `LCV` as the tuning
 strategy. It accepts a named tuple with the hyperparameter ranges for `KLIEP`,
 the kernel width `σ` and the number of basis functions `b`. Currently, the
 following tuning strategies are implemented:
