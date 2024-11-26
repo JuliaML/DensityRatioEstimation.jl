@@ -9,8 +9,6 @@ Return the Euclidean distance between two indexable objects.
 """
 euclidsq(x, y) = sum((x[i] - y[i])^2 for i in eachindex(x))
 
-# Support matrix data in a GPU and AD compatible way
-
 """
     euclidsq(X::T, Y::T) where {T<:AbstractMatrix}
 
@@ -55,12 +53,17 @@ gaussian_gramian(esq, σ::AbstractFloat) = exp.(-esq ./ 2σ^2)
 Generate a squared matrix whose diagonal is `a` that is 
 compatible to perform addition on `mat`. It behaves 
 differently based on whether `mat` is on a CPU or GPU.
-
-It is compatible with
-- CuArrays.jl (see lib/cuarrays.jl)
-- Zygote.jl (see lib/zygote.jl)
 """
 safe_diagm(mat, a) = a * I
+
+# avoid `mat + a * I` on GPU which involves scalar operations and is slow
+function safe_diagm(mat::AbstractGPUMatrix, a)
+  diag = similar(mat, size(m, 1))
+  fill!(diag, a)
+  Diagonal(diag)
+end
+
+@non_differentiable safe_diagm(::Any, ::Any)
 
 ###################################################
 ##   Functions and objects for throwing errors   ##

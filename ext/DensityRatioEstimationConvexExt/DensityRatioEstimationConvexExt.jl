@@ -2,7 +2,14 @@
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-function _kmm_ratios(K, κ, dre::uKMM, optlib::Type{JuliaLib})
-  # density ratio via solver
-  K \ vec(κ)
+module DensityRatioEstimationConvexExt
+
+using DensityRatioEstimation: KLIEP, ConvexLib
+using Convex
+using ECOS
+
+import DensityRatioEstimation
+
+include("kliep.jl")
+
 end
