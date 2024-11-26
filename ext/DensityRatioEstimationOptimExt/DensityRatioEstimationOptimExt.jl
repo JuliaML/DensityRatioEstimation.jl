@@ -13,4 +13,4 @@ import DensityRatioEstimation
 include("kliep.jl")
 include("lsif.jl")
 
-end #module
+end

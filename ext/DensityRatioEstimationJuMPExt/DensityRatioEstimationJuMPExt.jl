@@ -16,4 +16,4 @@ import DensityRatioEstimation
 include("kmm.jl")
 include("lsif.jl")
 
-end #module
+end

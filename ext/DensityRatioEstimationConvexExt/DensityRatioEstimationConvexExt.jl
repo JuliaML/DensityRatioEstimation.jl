@@ -12,4 +12,4 @@ import DensityRatioEstimation
 
 include("kliep.jl")
 
-end #module
+end
