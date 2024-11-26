@@ -51,7 +51,7 @@ Currently, this package implements the following estimators:
 
 <sup>1</sup> We use the naming convention of prefixing the type name with `u` for the unconstrained variant of the corresponding estimator.
 
-The fourth argument `optlib` specifies the optimization package used to implement
+The keyword argument `optlib` specifies the optimization package used to implement
 the estimator. Some estimators are implemented with different optimization packages
 to facilitate the usage in different environments. In the example above, users that
 already have the [Optim.jl](https://github.com/JuliaNLSolvers/Optim.jl) package in
@@ -83,12 +83,22 @@ and to find out the available implementations, please use
 available_optlib(KLIEP)
 ```
 
+In the case of `ConvexLib` and `JuMPLib`, specific optimizer packages must be loaded
+besides the optimization library itself. For example, one must load `Convex` *and* `ECOS`
+to use `optlib=ConvexLib` with the `KLIEP` estimator, or `JuMP` *and* `Ipopt` to use
+`optlib=JuMPLib` with the `LSIF` estimator.
+design.
+
+### Density ratio function
+
 Some methods support the evaluation of the density ratio at all `x`, besides the
-denominator samples. In this case, the following line returns a function `r(x)`
+denominator samples. In this case, `densratiofunc` returns a function `r`
 that can be evaluated at new unseen samples:
 
 ```julia
 r = densratiofunc(x_nu, x_de, KLIEP())
+
+r(x) # evaluate at new x
 ```
 
 ### Hyperparameter tuning
