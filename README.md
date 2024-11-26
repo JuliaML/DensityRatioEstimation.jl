@@ -85,9 +85,21 @@ available_optlib(KLIEP)
 
 In the case of `ConvexLib` and `JuMPLib`, specific optimizer packages must be loaded
 besides the optimization library itself. For example, one must load `Convex` *and* `ECOS`
-to use `optlib=ConvexLib` with the `KLIEP` estimator, or `JuMP` *and* `Ipopt` to use
-`optlib=JuMPLib` with the `LSIF` estimator.
-design.
+to use `optlib=ConvexLib` with the `KLIEP` estimator:
+
+```julia
+using DensityRatioEstimation, Convex, ECOS
+
+r = densratio(x_nu, x_de, KLIEP(), optlib=ConvexLib)
+```
+
+or `JuMP` *and* `Ipopt` to use `optlib=JuMPLib` with the `LSIF` estimator:
+
+```julia
+using DensityRatioEstimation, JuMP, Ipopt
+
+r = densratio(x_nu, x_de, LSIF(), optlib=JuMPLib)
+```
 
 ### Density ratio function
 
