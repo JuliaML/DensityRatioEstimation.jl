@@ -88,3 +88,9 @@ default_optlib(dre::Type{<:KMM}) = JuMPLib
 available_optlib(dre::Type{<:KMM}) = [JuMPLib]
 
 _kmm_ratios(K, κ, dre::AbstractKMM, optlib::Type{<:OptimizationLibrary}) = _throw_opt_error(dre, optlib)
+
+# pure Julia implementation
+function _kmm_ratios(K, κ, dre::uKMM, optlib::Type{JuliaLib})
+  # density ratio via solver
+  K \ vec(κ)
+end

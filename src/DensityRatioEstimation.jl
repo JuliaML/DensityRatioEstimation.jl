@@ -10,7 +10,9 @@ using LinearAlgebra
 using Parameters
 using Random
 
-# implement fit for estimators
+using GPUArraysCore: AbstractGPUMatrix
+using ChainRulesCore: @non_differentiable
+
 import StatsBase: fit
 
 # API for density ratio estimation
@@ -28,9 +30,6 @@ include("lsif.jl")
 
 # available estimator fitters
 include("lcv.jl")
-
-# pure Julia implementations
-include("kmm/julia.jl")
 
 export
   # optim libs

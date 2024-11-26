@@ -2,8 +2,6 @@
 # Licensed under the MIT License. See LICENSE in the project root.
 # ------------------------------------------------------------------
 
-# This file is part of the module DensityRatioEstimationConvexExt.
-
 function DensityRatioEstimation._kliep_coeffs(K_nu, K_de, dre::KLIEP, optlib::Type{ConvexLib})
   # retrieve parameters
   σ, b = dre.σ, size(K_de, 2)
