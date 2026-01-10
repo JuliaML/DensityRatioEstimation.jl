@@ -22,7 +22,7 @@ Importance Estimation
 
 * Júlio Hoffimann (julio.hoffimann@gmail.com)
 """
-@with_kw struct LSIF{T,RNG} <: DensityRatioEstimator
+@kwdef struct LSIF{T,RNG} <: DensityRatioEstimator
   σ::T = 2.0
   b::Int = 10
   λ::T = 0.001
