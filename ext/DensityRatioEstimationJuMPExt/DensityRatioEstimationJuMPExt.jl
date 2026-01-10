@@ -5,7 +5,6 @@
 module DensityRatioEstimationJuMPExt
 
 using DensityRatioEstimation: LSIF, JuMPLib, AbstractKMM, uKMM, KMM
-using DensityRatioEstimation.Parameters
 using JuMP
 using Ipopt
 using LinearAlgebra

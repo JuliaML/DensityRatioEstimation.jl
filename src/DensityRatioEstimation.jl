@@ -7,7 +7,6 @@ module DensityRatioEstimation
 using StatsBase
 using Statistics
 using LinearAlgebra
-using Parameters
 using Random
 
 using GPUArraysCore: AbstractGPUMatrix

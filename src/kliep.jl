@@ -21,7 +21,7 @@ Kullback-Leibler importance estimation procedure (KLIEP).
 
 * Júlio Hoffimann (julio.hoffimann@gmail.com)
 """
-@with_kw struct KLIEP{T,RNG} <: DensityRatioEstimator
+@kwdef struct KLIEP{T,RNG} <: DensityRatioEstimator
   σ::T = 2.0
   b::Int = 10
   rng::RNG = Random.GLOBAL_RNG

@@ -5,7 +5,7 @@
 abstract type AbstractKMM <: DensityRatioEstimator end
 
 function _kmm_consts(x_nu, x_de, dre::AbstractKMM)
-  @unpack σ, λ = dre
+  (; σ, λ) = dre
 
   # Gramian matrices for numerator and denominator
   Kdede = gaussian_gramian(x_de; σ=σ)
@@ -45,7 +45,7 @@ Unconstrained Kernel Mean Matching (KMM).
 * Júlio Hoffimann (julio.hoffimann@gmail.com)
 * Kai Xu (xukai921110@gmail.com)
 """
-@with_kw struct uKMM{T} <: AbstractKMM
+@kwdef struct uKMM{T} <: AbstractKMM
   σ::T = 2.0
   λ::T = 0.001
 end
@@ -76,7 +76,7 @@ Kernel Mean Matching (KMM).
 * Júlio Hoffimann (julio.hoffimann@gmail.com)
 * Kai Xu (xukai921110@gmail.com)
 """
-@with_kw struct KMM{T} <: AbstractKMM
+@kwdef struct KMM{T} <: AbstractKMM
   σ::T = 2.0
   B::T = Inf
   ϵ::T = 0.01

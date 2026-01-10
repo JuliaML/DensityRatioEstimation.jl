@@ -27,7 +27,7 @@ end
 
 function DensityRatioEstimation._kmm_ratios(K, κ, dre::KMM, optlib::Type{JuMPLib})
   # retrieve parameters
-  @unpack B, ϵ = dre
+  (; B, ϵ) = dre
 
   # build the problem without constraints
   model, β = _kmm_jump_model(K, κ, dre, optlib)
